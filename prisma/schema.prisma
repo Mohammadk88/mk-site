@@ -1,0 +1,175 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  titleEn       String
+  titleAr       String   @default("")
+  titleTr       String   @default("")
+  descriptionEn String
+  descriptionAr String   @default("")
+  descriptionTr String   @default("")
+  image         String   @default("")
+  demoUrl       String   @default("")
+  githubUrl     String   @default("")
+  technologies  String   @default("[]") // JSON array of technology names
+  category      String   @default("web")
+  published     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  type        String // "general" or "saas"
+  price       Float?
+  description String
+  duration    String?
+  lang        String // "en", "ar", "tr"
+  features    String // JSON string of features array
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("services")
+}
+
+model PricingPlan {
+  id        String   @id @default(cuid())
+  name      String
+  features  String // JSON string of features array
+  price     Float
+  currency  String // "USD", "TRY", "EUR"
+  lang      String // "en", "ar", "tr"
+  popular   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pricing_plans")
+}
+
+model RecurringService {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  currency    String // "USD", "TRY", "EUR"
+  lang        String // "en", "ar", "tr"
+  features    String // JSON string of features array
+  billing     String // "monthly", "yearly"
+  popular     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("recurring_services")
+}
+
+model CVPassword {
+  id        String    @id @default(cuid())
+  name      String
+  password  String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+  used      Boolean   @default(false)
+
+  @@map("cv_passwords")
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  body      String
+  lang      String // "en", "ar", "tr"
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
+model Settings {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+
+  @@map("settings")
+}
+
+model ContactInfo {
+  id        String   @id @default(cuid())
+  type      String // "email", "phone", "address"
+  value     String
+  label     String
+  lang      String // "en", "ar", "tr"
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_info")
+}
+
+model SocialMedia {
+  id        String   @id @default(cuid())
+  platform  String // "github", "linkedin", "twitter", "instagram", "facebook", "youtube"
+  url       String
+  username  String
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("social_media")
+}
+
+model PersonalInfo {
+  id        String   @id @default(cuid())
+  nameEn    String
+  nameAr    String
+  nameTr    String
+  titleEn   String
+  titleAr   String
+  titleTr   String
+  bioEn     String
+  bioAr     String
+  bioTr     String
+  avatar    String
+  resumeUrl String
+  location  String
+  yearsExp  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("personal_info")
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String
+  category  String // "frontend", "backend", "tools", "languages"
+  level     Int      @default(80) // 1-100
+  icon      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("skills")
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String // bcrypt hashed
+  name     String
+
+  @@map("admins")
+}

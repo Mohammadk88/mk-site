@@ -1,0 +1,178 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "services": "Services & Pricing",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm Mohammad Kfelati",
+    "title": "ICT Officer | Full-Stack Developer | AI-Powered SaaS Architect",
+    "subtitle": "Passionate Syrian developer with 14+ years of experience building full-stack web applications, AI-powered SaaS platforms, and automation tools",
+    "cta": {
+      "primary": "View My Work",
+      "secondary": "Let's Talk"
+    },
+    "availability": "Available for new projects"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Passionate developer with expertise in modern technologies",
+    "downloadCV": "Download CV",
+    "experience": "Years Experience",
+    "projects": "Projects Completed",
+    "clients": "Happy Clients"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Showcasing my latest work in AI, web development, and SaaS solutions",
+    "viewAll": "View All Projects",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "badge": "Portfolio Showcase",
+    "title1": "My Latest",
+    "title2": "Projects",
+    "description": "A collection of projects that showcase my skills in web development, mobile applications, and design. Each project represents a unique challenge and solution that I've crafted with passion and attention to detail.",
+    "stats": {
+      "projects": "Projects Built",
+      "users": "Users Reached", 
+      "technologies": "Technologies"
+    },
+    "categories": {
+      "all": "All",
+      "web": "Web Applications",
+      "mobile": "Mobile Apps",
+      "ai": "AI-Powered Systems",
+      "erp": "ERP Systems", 
+      "crm": "CRM Systems",
+      "ecommerce": "E-commerce Platforms",
+      "restaurant": "Restaurant Systems",
+      "saas": "SaaS Solutions",
+      "startup": "Startup Management"
+    }
+  },
+  "services": {
+    "title": "Services & Pricing",
+    "subtitle": "18 completed programming projects across diverse domains",
+    "completedProjects": "18 Completed Projects",
+    "tech": {
+      "title": "Programming Services",
+      "website": "Personal Websites & CV Builders",
+      "ecommerce": "E-commerce Platforms",
+      "mobile": "Mobile Applications (iOS & Android)",
+      "ai": "AI-Powered Chat Systems",
+      "erp": "Enterprise Resource Planning (ERP) Systems",
+      "crm": "Customer Relationship Management (CRM)",
+      "school": "School Management Systems",
+      "hospital": "Hospital Management Systems",
+      "restaurant": "Restaurant Management Systems",
+      "delivery": "Food Delivery Applications",
+      "saas": "Custom SaaS Solutions",
+      "startup": "Startup Project Management",
+      "support": "Monthly Maintenance & Support"
+    }
+  },
+  "pricing": {
+    "title": "Services & Pricing",
+    "subtitle": "Choose the perfect package for your project",
+    "oneTime": {
+      "title": "One-time Services",
+      "subtitle": "Complete projects with fixed pricing"
+    },
+    "recurring": {
+      "title": "Recurring Services",
+      "subtitle": "Monthly subscriptions and ongoing support"
+    },
+    "currency": "Currency",
+    "basic": {
+      "title": "Basic Website",
+      "description": "Perfect for personal portfolios",
+      "price": 400
+    },
+    "startup": {
+      "title": "Startup Site",
+      "description": "Complete business presence",
+      "price": 700
+    },
+    "ecommerce": {
+      "title": "eCommerce Store",
+      "description": "Full online store solution",
+      "price": 1200
+    },
+    "mobile": {
+      "title": "Mobile App MVP",
+      "description": "Cross-platform mobile app",
+      "price": 2000
+    },
+    "support": {
+      "title": "Monthly Support",
+      "description": "Ongoing maintenance and updates",
+      "price": 100
+    },
+    "saas": {
+      "title": "AI SaaS MVP",
+      "description": "Custom SaaS solution",
+      "price": 2500
+    }
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Ready to bring your ideas to life",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Your Message",
+      "budget": "Project Budget",
+      "timeline": "Timeline",
+      "send": "Send Message"
+    },
+    "info": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram"
+    }
+  },
+  "footer": {
+    "description": "Full-Stack Developer & AI Engineer crafting digital experiences",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "connect": "Connect",
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Get the latest insights on technology and AI",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "copyright": "© 2025 Mohammad Ziad Kfelati. All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "success": "Success!",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "download": "Download"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn't find the page you're looking for. It might have been moved or doesn't exist.",
+    "backHome": "Back to Home",
+    "tryLinks": "Or try one of these links:",
+    "links": {
+      "about": "About",
+      "projects": "Projects", 
+      "services": "Services",
+      "contact": "Contact"
+    }
+  },
+  "whatsapp": {
+    "tooltip": "💬 Need help with a project? Let's chat!"
+  }
+}

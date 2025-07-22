@@ -1,0 +1,96 @@
+{
+    "name": "Mohammad Kfelati",
+    "title": "ICT Officer | Full-Stack Developer | AI-Powered SaaS Architect",
+    "location": "Istanbul, Turkey",
+    "email": "mohammad.kfelati@example.com",
+    "website": "https://mohammadkfelati.com",
+    "linkedin": "https://www.linkedin.com/in/mohammadkfelati/",
+    "github": "https://github.com/mkfelati",
+    "whatsapp": "+90 555 555 5555",
+    "bio": "I'm a passionate Syrian developer with 14+ years of experience and 18 completed programming projects. I specialize in building full-stack web applications, mobile apps, AI-powered chat systems, ERP/CRM systems, school management systems, hospital management systems, restaurant management systems, food delivery apps, e-commerce platforms, SaaS solutions, and startup project management systems. I'm based in Istanbul and actively working on projects that blend tech, community, and innovation.",
+    "projects_completed": 18,
+    "project_types": [
+        "Web Applications",
+        "Mobile Applications", 
+        "AI-Powered Chat Systems",
+        "ERP Systems",
+        "CRM Systems", 
+        "School Management Systems",
+        "Hospital Management Systems",
+        "Restaurant Management Systems",
+        "Food Delivery Applications",
+        "E-commerce Platforms",
+        "SaaS Solutions",
+        "Startup Project Management Systems"
+    ],
+    "expertise": [
+        "Full-stack development (Laravel, NestJS, Node.js, Next.js)",
+        "Frontend with React, Vue, Tailwind CSS",
+        "Backend APIs, Authentication, Payment Integration",
+        "Database modeling and optimization (PostgreSQL, MySQL, Prisma)",
+        "AI integration in SaaS (OpenAI, automation, memory systems)",
+        "Project planning, MVP development, multi-language apps",
+        "SEO optimization and performance tuning"
+    ],
+    "services": [
+        {
+            "name": "Personal Website + CV Builder",
+            "description": "Design and deploy a fast, SEO-friendly personal site with CV protection and social integrations.",
+            "price_usd": "400"
+        },
+        {
+            "name": "E-commerce Platform",
+            "description": "Complete online store with payment integration, inventory management, and admin dashboard.",
+            "price_usd": "800-1500"
+        },
+        {
+            "name": "Mobile Application Development",
+            "description": "Native or cross-platform mobile apps for iOS and Android with modern UI/UX.",
+            "price_usd": "1200-2500"
+        },
+        {
+            "name": "AI-Powered Chat Systems",
+            "description": "Intelligent chatbots and AI assistants integrated into websites or applications.",
+            "price_usd": "600-1200"
+        },
+        {
+            "name": "ERP/CRM Systems",
+            "description": "Enterprise resource planning and customer relationship management solutions.",
+            "price_usd": "2000-5000"
+        },
+        {
+            "name": "Management Systems (Schools/Hospitals/Restaurants)",
+            "description": "Comprehensive management systems tailored for educational, healthcare, and hospitality sectors.",
+            "price_usd": "1500-3500"
+        },
+        {
+            "name": "Food Delivery Platform",
+            "description": "Complete food delivery ecosystem with customer, restaurant, and delivery partner apps.",
+            "price_usd": "2500-4000"
+        },
+        {
+            "name": "Custom SaaS Solutions",
+            "description": "Build scalable SaaS platforms with subscription management, multi-tenancy, and analytics.",
+            "price_usd": "2000-6000"
+        },
+        {
+            "name": "Startup Project Management",
+            "description": "End-to-end startup development including MVP, scaling, and technical consulting.",
+            "price_usd": "1500-4000"
+        },
+        {
+            "name": "Ongoing Maintenance & Support",
+            "description": "Monthly updates, performance improvements, bug fixes, and technical consulting.",
+            "price_usd": "200-500/month"
+        }
+    ],
+    "cv": {
+        "file_path": "/Mohammad_Kfelati.pdf",
+        "protected": true,
+        "download_instructions": "Requires a password provided by me. Each person gets a unique key."
+    },
+    "linkedin_badge": {
+        "embed_code": "<div class=\"badge-base LI-profile-badge\" data-locale=\"ar_AE\" data-size=\"medium\" data-theme=\"light\" data-type=\"VERTICAL\" data-vanity=\"mohammadkfelati\" data-version=\"v1\"><a class=\"badge-base__link LI-simple-link\" href=\"https://tr.linkedin.com/in/mohammadkfelati/ar?trk=profile-badge\">محمد قفيلاتي</a></div>",
+        "profile_url": "https://www.linkedin.com/in/mohammadkfelati/"
+    }
+}

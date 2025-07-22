@@ -1,0 +1,178 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkında",
+    "projects": "Projeler",
+    "services": "Hizmetler ve Fiyatlar",
+    "contact": "İletişim"
+  },
+  "hero": {
+    "greeting": "Merhaba, ben Mohammad Kfelati",
+    "title": "BİT Sorumlusu | Full-Stack Geliştirici | AI Destekli SaaS Mimarı",
+    "subtitle": "14+ yıl deneyime sahip tutkulu Suriyeli geliştirici. Full-stack web uygulamaları, AI destekli SaaS platformları ve otomasyon araçları geliştirme konusunda uzman",
+    "cta": {
+      "primary": "Çalışmalarımı Gör",
+      "secondary": "Konuşalım"
+    },
+    "availability": "Yeni projeler için müsait"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "subtitle": "Modern teknolojilerde uzmanlığa sahip tutkulu geliştirici",
+    "downloadCV": "CV İndir",
+    "experience": "Yıl Deneyim",
+    "projects": "Tamamlanan Proje",
+    "clients": "Mutlu Müşteri"
+  },
+  "projects": {
+    "title": "Öne Çıkan Projeler",
+    "subtitle": "AI, web geliştirme ve SaaS çözümlerindeki en son çalışmalarım",
+    "viewAll": "Tüm Projeleri Gör",
+    "liveDemo": "Canlı Demo",
+    "sourceCode": "Kaynak Kod",
+    "badge": "Portföy Vitrin",
+    "title1": "En Son",
+    "title2": "Projelerim",
+    "description": "Web geliştirme, mobil uygulamalar ve tasarım alanındaki yeteneklerimi sergileyen proje koleksiyonu. Her proje, tutkuyla ve detaylara gösterilen özenle hazırladığım benzersiz bir meydan okuma ve çözümü temsil ediyor.",
+    "stats": {
+      "projects": "Tamamlanan Projeler",
+      "users": "Ulaşılan Kullanıcılar",
+      "technologies": "Teknolojiler"
+    },
+    "categories": {
+      "all": "Hepsi",
+      "web": "Web Uygulamaları",
+      "mobile": "Mobil Uygulamalar",
+      "ai": "AI Destekli Sistemler",
+      "erp": "ERP Sistemleri",
+      "crm": "CRM Sistemleri", 
+      "ecommerce": "E-ticaret Platformları",
+      "restaurant": "Restoran Sistemleri",
+      "saas": "SaaS Çözümleri",
+      "startup": "Startup Yönetimi"
+    }
+  },
+  "services": {
+    "title": "Hizmetler ve Fiyatlar",
+    "subtitle": "Çeşitli alanlarda 18 tamamlanmış programlama projesi",
+    "completedProjects": "18 Tamamlanmış Proje",
+    "tech": {
+      "title": "Programlama Hizmetleri",
+      "website": "Kişisel Web Siteleri ve CV Oluşturucular",
+      "ecommerce": "E-ticaret Platformları",
+      "mobile": "Mobil Uygulamalar (iOS & Android)",
+      "ai": "AI Destekli Sohbet Sistemleri",
+      "erp": "Kurumsal Kaynak Planlama (ERP) Sistemleri",
+      "crm": "Müşteri İlişkileri Yönetimi (CRM)",
+      "school": "Okul Yönetim Sistemleri",
+      "hospital": "Hastane Yönetim Sistemleri",
+      "restaurant": "Restoran Yönetim Sistemleri",
+      "delivery": "Yemek Teslimat Uygulamaları",
+      "saas": "Özel SaaS Çözümleri",
+      "startup": "Startup Proje Yönetimi",
+      "support": "Aylık Bakım ve Destek"
+    }
+  },
+  "pricing": {
+    "title": "Hizmetler ve Fiyatlar",
+    "subtitle": "Projeniz için mükemmel paketi seçin",
+    "oneTime": {
+      "title": "Tek Seferlik Hizmetler",
+      "subtitle": "Sabit fiyatla tamamlanan projeler"
+    },
+    "recurring": {
+      "title": "Sürekli Hizmetler",
+      "subtitle": "Aylık abonelikler ve sürekli destek"
+    },
+    "currency": "Para Birimi",
+    "basic": {
+      "title": "Temel Web Sitesi",
+      "description": "Kişisel portföyler için mükemmel",
+      "price": 400
+    },
+    "startup": {
+      "title": "Startup Sitesi",
+      "description": "Eksiksiz iş varlığı",
+      "price": 700
+    },
+    "ecommerce": {
+      "title": "E-Ticaret Mağazası",
+      "description": "Tam online mağaza çözümü",
+      "price": 1200
+    },
+    "mobile": {
+      "title": "Mobil Uygulama MVP",
+      "description": "Çapraz platform mobil uygulama",
+      "price": 2000
+    },
+    "support": {
+      "title": "Aylık Destek",
+      "description": "Sürekli bakım ve güncellemeler",
+      "price": 100
+    },
+    "saas": {
+      "title": "AI SaaS MVP",
+      "description": "Özel SaaS çözümü",
+      "price": 2500
+    }
+  },
+  "contact": {
+    "title": "Birlikte Çalışalım",
+    "subtitle": "Fikirlerinizi hayata geçirmeye hazır",
+    "form": {
+      "name": "Adınız",
+      "email": "E-posta Adresi",
+      "subject": "Konu",
+      "message": "Mesajınız",
+      "budget": "Proje Bütçesi",
+      "timeline": "Zaman Çizelgesi",
+      "send": "Mesaj Gönder"
+    },
+    "info": {
+      "email": "E-posta",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram"
+    }
+  },
+  "footer": {
+    "description": "Dijital deneyimler yaratan Full-Stack Geliştirici ve AI Mühendisi",
+    "quickLinks": "Hızlı Bağlantılar",
+    "services": "Hizmetler",
+    "connect": "Bağlan",
+    "newsletter": {
+      "title": "Güncel Kal",
+      "description": "Teknoloji ve AI hakkında en son görüşleri al",
+      "placeholder": "E-postanızı girin",
+      "subscribe": "Abone Ol"
+    },
+    "copyright": "© 2025 Mohammad Ziad Kfelati. Tüm hakları saklıdır."
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir şeyler yanlış gitti",
+    "retry": "Tekrar Dene",
+    "success": "Başarılı!",
+    "close": "Kapat",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "view": "Görüntüle",
+    "download": "İndir"
+  },
+  "notFound": {
+    "title": "Sayfa Bulunamadı",
+    "description": "Üzgünüz, aradığınız sayfayı bulamadık. Taşınmış olabilir veya mevcut olmayabilir.",
+    "backHome": "Ana Sayfaya Dön",
+    "tryLinks": "Veya şu bağlantılardan birini deneyin:",
+    "links": {
+      "about": "Hakkımda",
+      "projects": "Projeler",
+      "services": "Hizmetler",
+      "contact": "İletişim"
+    }
+  },
+  "whatsapp": {
+    "tooltip": "💬 Bir projede yardıma mı ihtiyacınız var? Konuşalım!"
+  }
+}
