@@ -172,6 +172,30 @@
       "contact": "İletişim"
     }
   },
+  "payment": {
+    "title": "Ödemenizi Tamamlayın",
+    "description": "Paddle tarafından desteklenen güvenli ödeme işlemi",
+    "processing": "Ödeme işleniyor...",
+    "processOrder": "Siparişi İşle",
+    "security": "🔒 Ödeme bilgileriniz güvenli ve şifrelidir",
+    "backToServices": "Hizmetlere Dön",
+    "success": {
+      "title": "Ödeme Başarılı!",
+      "message": "Satın alımınız için teşekkürler. Ödemeniz başarıyla işlendi.",
+      "transactionId": "İşlem Kimliği",
+      "nextSteps": "Bundan sonra ne olacak?",
+      "step1": "Kısa süre içinde onay e-postası alacaksınız",
+      "step2": "Proje detaylarını görüşmek için 24 saat içinde sizinle iletişime geçeceğim",
+      "step3": "Proje geliştirme planlandığı gibi başlayacak",
+      "contactUs": "Benimle İletişime Geç",
+      "backToServices": "Hizmetlere Dön"
+    },
+    "error": {
+      "title": "Ödeme Başarısız",
+      "message": "Ödemenizi işleyemedik. Lütfen tekrar deneyin veya destek ile iletişime geçin.",
+      "retry": "Tekrar Dene"
+    }
+  },
   "whatsapp": {
     "tooltip": "💬 Bir projede yardıma mı ihtiyacınız var? Konuşalım!"
   }

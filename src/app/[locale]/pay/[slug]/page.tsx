@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+import PaddleCheckout from '@/components/payment/PaddleCheckout';
 
 export default async function PaymentPage({
   params
@@ -83,12 +84,36 @@ export default async function PaymentPage({
           </div>
 
           <div className="text-center">
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-4">
+                {locale === 'ar' ? 'اختر طريقة الدفع' : locale === 'tr' ? 'Ödeme Yöntemini Seçin' : 'Choose Payment Method'}
+              </h3>
+              
+              {/* Paddle Payment */}
+              <PaddleCheckout
+                serviceId={serviceId}
+                serviceName={service.name}
+                price={service.price}
+                currency={service.currency}
+                serviceType={isRecurring ? 'recurring' : 'one-time'}
+                locale={locale}
+              />
+            </div>
+
+            <div className="flex items-center my-6">
+              <div className="flex-1 border-t border-gray-300"></div>
+              <span className="px-4 text-gray-500 text-sm">
+                {locale === 'ar' ? 'أو' : locale === 'tr' ? 'veya' : 'or'}
+              </span>
+              <div className="flex-1 border-t border-gray-300"></div>
+            </div>
+
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               {locale === 'ar' 
-                ? 'صفحة الدفع قيد التطوير. يمكنك التواصل معنا عبر واتساب لإتمام الطلب.'
+                ? 'يمكنك أيضاً التواصل معنا عبر واتساب لإتمام الطلب'
                 : locale === 'tr'
-                ? 'Ödeme sayfası geliştiriliyor. Siparişi tamamlamak için WhatsApp üzerinden bizimle iletişime geçebilirsiniz.'
-                : 'Payment page is under development. You can contact us via WhatsApp to complete the order.'
+                ? 'Siparişi tamamlamak için WhatsApp üzerinden de bizimle iletişime geçebilirsiniz'
+                : 'You can also contact us via WhatsApp to complete the order'
               }
             </p>
             

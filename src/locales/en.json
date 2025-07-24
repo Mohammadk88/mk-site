@@ -172,6 +172,30 @@
       "contact": "Contact"
     }
   },
+  "payment": {
+    "title": "Complete Your Payment",
+    "description": "Secure payment processing powered by Paddle",
+    "processing": "Processing payment...",
+    "processOrder": "Process Order",
+    "security": "🔒 Your payment information is secure and encrypted",
+    "backToServices": "Back to Services",
+    "success": {
+      "title": "Payment Successful!",
+      "message": "Thank you for your purchase. Your payment has been processed successfully.",
+      "transactionId": "Transaction ID",
+      "nextSteps": "What happens next?",
+      "step1": "You will receive a confirmation email shortly",
+      "step2": "I will contact you within 24 hours to discuss project details",
+      "step3": "Project development will begin as scheduled",
+      "contactUs": "Contact Me",
+      "backToServices": "Back to Services"
+    },
+    "error": {
+      "title": "Payment Failed",
+      "message": "We couldn't process your payment. Please try again or contact support.",
+      "retry": "Try Again"
+    }
+  },
   "whatsapp": {
     "tooltip": "💬 Need help with a project? Let's chat!"
   }
