@@ -693,7 +693,7 @@ async function main() {
     bioAr: 'أنا مطور سوري شغوف مع أكثر من 14 عامًا من الخبرة. متخصص في بناء تطبيقات الويب المتكاملة ومنصات SaaS بالذكاء الاصطناعي وأدوات الأتمتة. أعيش في إسطنبول وأعمل بنشاط على مشاريع تمزج بين التكنولوجيا والمجتمع والابتكار.',
     bioTr: '14+ yıl deneyime sahip tutkulu Suriyeli geliştiriciyim. Full-stack web uygulamaları, AI destekli SaaS platformları ve otomasyon araçları geliştirme konusunda uzmanım. İstanbul merkezli olarak teknoloji, toplum ve inovasyonu harmanlayan projeler üzerinde aktif olarak çalışıyorum.',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-    resumeUrl: '/cv/mohammad-kfelati-cv.pdf',
+    resumeUrl: 'https://linkedin.com/in/mohammadkfelati',
     location: 'Istanbul, Turkey',
     yearsExp: 14
   };
@@ -715,16 +715,16 @@ async function main() {
   // Seed Contact Info
   const contactInfo = [
     // English
-    { type: 'email', value: 'mohammad.kfelati@example.com', label: 'Email', lang: 'en', isPrimary: true },
-    { type: 'phone', value: '+90 555 555 5555', label: 'Phone', lang: 'en', isPrimary: true },
+    { type: 'email', value: 'mohammad.kfelati@gmail.com', label: 'Email', lang: 'en', isPrimary: true },
+    { type: 'phone', value: '+905317255372', label: 'WhatsApp', lang: 'en', isPrimary: true },
     { type: 'address', value: 'Istanbul, Turkey', label: 'Location', lang: 'en', isPrimary: true },
     // Arabic
-    { type: 'email', value: 'mohammad.kfelati@example.com', label: 'البريد الإلكتروني', lang: 'ar', isPrimary: true },
-    { type: 'phone', value: '+90 555 555 5555', label: 'الهاتف', lang: 'ar', isPrimary: true },
+    { type: 'email', value: 'mohammad.kfelati@gmail.com', label: 'البريد الإلكتروني', lang: 'ar', isPrimary: true },
+    { type: 'phone', value: '+905317255372', label: 'واتساب', lang: 'ar', isPrimary: true },
     { type: 'address', value: 'إسطنبول، تركيا', label: 'الموقع', lang: 'ar', isPrimary: true },
     // Turkish
-    { type: 'email', value: 'mohammad.kfelati@example.com', label: 'E-posta', lang: 'tr', isPrimary: true },
-    { type: 'phone', value: '+90 555 555 5555', label: 'Telefon', lang: 'tr', isPrimary: true },
+    { type: 'email', value: 'mohammad.kfelati@gmail.com', label: 'E-posta', lang: 'tr', isPrimary: true },
+    { type: 'phone', value: '+905317255372', label: 'WhatsApp', lang: 'tr', isPrimary: true },
     { type: 'address', value: 'İstanbul, Türkiye', label: 'Konum', lang: 'tr', isPrimary: true },
   ];
 
@@ -752,11 +752,13 @@ async function main() {
 
   // Seed Social Media
   const socialMedia = [
-    { platform: 'github', url: 'https://github.com/mkfelati', username: 'mkfelati', isVisible: true },
-    { platform: 'linkedin', url: 'https://www.linkedin.com/in/mohammadkfelati/', username: 'mohammadkfelati', isVisible: true },
-    { platform: 'twitter', url: 'https://twitter.com/mohammad_dev', username: 'mohammad_dev', isVisible: true },
-    { platform: 'instagram', url: 'https://instagram.com/mohammad.dev', username: 'mohammad.dev', isVisible: true },
-    { platform: 'youtube', url: 'https://youtube.com/@mohammaddev', username: 'mohammaddev', isVisible: true },
+    { platform: 'linkedin', url: 'https://linkedin.com/in/mohammadkfelati', username: 'mohammadkfelati', isVisible: true },
+    { platform: 'github', url: 'https://github.com/mohammadk88', username: 'mohammadk88', isVisible: true },
+    { platform: 'facebook', url: 'https://facebook.com/mohammad.kfelati', username: 'mohammad.kfelati', isVisible: true },
+    { platform: 'twitter', url: 'https://x.com/mohammad_kfelati', username: 'mohammad_kfelati', isVisible: true },
+    { platform: 'instagram', url: 'https://instagram.com/mohammad_kfelati', username: 'mohammad_kfelati', isVisible: true },
+    { platform: 'tiktok', url: 'https://tiktok.com/@mohammad_kfelati', username: 'mohammad_kfelati', isVisible: true },
+    { platform: 'youtube', url: 'https://youtube.com/@mohammad_kfelati', username: 'mohammad_kfelati', isVisible: true },
   ];
 
   for (const social of socialMedia) {
