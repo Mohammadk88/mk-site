@@ -1,6 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { 
   Mail, 
   Phone, 
@@ -11,78 +14,168 @@ import {
   Github, 
   Twitter,
   Calendar,
-  Globe
+  Globe,
+  ExternalLink
 } from 'lucide-react';
 
-const contactMethods = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'hello@example.com',
-    href: 'mailto:hello@example.com',
-    description: 'Best for detailed project discussions',
-    color: 'from-blue-500 to-cyan-500'
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '+90 555 123 4567',
-    href: 'tel:+905551234567',
-    description: 'For urgent inquiries',
-    color: 'from-green-500 to-emerald-500'
-  },
-  {
-    icon: MessageCircle,
-    label: 'WhatsApp',
-    value: '+90 555 123 4567',
-    href: 'https://wa.me/905551234567',
-    description: 'Quick questions and updates',
-    color: 'from-green-600 to-green-400'
-  },
-  {
-    icon: Calendar,
-    label: 'Schedule Call',
-    value: 'Book a meeting',
-    href: 'https://calendly.com/example',
-    description: 'Free 30-minute consultation',
-    color: 'from-purple-500 to-pink-500'
-  }
-];
-
-const socialLinks = [
-  {
-    icon: Linkedin,
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/in/example',
-    color: 'hover:text-blue-600'
-  },
-  {
-    icon: Github,
-    label: 'GitHub',
-    href: 'https://github.com/example',
-    color: 'hover:text-gray-900 dark:hover:text-white'
-  },
-  {
-    icon: Twitter,
-    label: 'Twitter',
-    href: 'https://twitter.com/example',
-    color: 'hover:text-blue-400'
-  },
-  {
-    icon: Globe,
-    label: 'Website',
-    href: 'https://example.com',
-    color: 'hover:text-primary'
-  }
-];
-
-const workingHours = [
-  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Saturday', hours: '10:00 AM - 4:00 PM' },
-  { day: 'Sunday', hours: 'By Appointment' }
-];
+interface ContactInfo {
+  id: string;
+  type: string;
+  value: string;
+  label: string;
+  lang: string;
+  isPrimary: boolean;
+}
 
 export default function ContactInfo() {
+  const t = useTranslations('contact');
+  const params = useParams();
+  const locale = params.locale as string;
+  const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await fetch(`/api/contact-info?lang=${locale}`);
+        const data = await response.json();
+        setContactInfo(data);
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchContactInfo();
+  }, [locale]);
+
+  // Function to generate contact methods from database
+  const getContactMethods = () => {
+    const methods = [];
+    
+    // Email
+    const email = contactInfo.find(item => item.type === 'email');
+    if (email) {
+      methods.push({
+        icon: Mail,
+        label: email.label,
+        value: email.value,
+        href: `mailto:${email.value}`,
+        description: locale === 'ar' ? 'الأفضل لمناقشة المشاريع التفصيلية' :
+                    locale === 'tr' ? 'Detaylı proje tartışmaları için en iyi' :
+                    'Best for detailed project discussions',
+        color: 'from-blue-500 to-cyan-500'
+      });
+    }
+
+    // Phone
+    const phone = contactInfo.find(item => item.type === 'phone');
+    if (phone) {
+      methods.push({
+        icon: Phone,
+        label: phone.label,
+        value: phone.value,
+        href: `tel:${phone.value}`,
+        description: locale === 'ar' ? 'للاستفسارات العاجلة' :
+                    locale === 'tr' ? 'Acil sorular için' :
+                    'For urgent inquiries',
+        color: 'from-green-500 to-emerald-500'
+      });
+
+      // WhatsApp using same phone number
+      methods.push({
+        icon: MessageCircle,
+        label: 'WhatsApp',
+        value: phone.value,
+        href: `https://wa.me/${phone.value.replace(/[^0-9]/g, '')}`,
+        description: locale === 'ar' ? 'أسئلة سريعة وتحديثات' :
+                    locale === 'tr' ? 'Hızlı sorular ve güncellemeler' :
+                    'Quick questions and updates',
+        color: 'from-green-600 to-green-400'
+      });
+    }
+
+    // Address
+    const address = contactInfo.find(item => item.type === 'address');
+    if (address) {
+      methods.push({
+        icon: MapPin,
+        label: address.label,
+        value: address.value,
+        href: `https://maps.google.com/?q=${encodeURIComponent(address.value)}`,
+        description: locale === 'ar' ? 'موقعي الحالي' :
+                    locale === 'tr' ? 'Mevcut konumum' :
+                    'My current location',
+        color: 'from-red-500 to-pink-500'
+      });
+    }
+
+    return methods;
+  };
+
+  const socialLinks = [
+    {
+      icon: Linkedin,
+      label: 'LinkedIn',
+      href: 'https://linkedin.com/in/mohammad-kfelati',
+      color: 'hover:text-blue-600'
+    },
+    {
+      icon: Github,
+      label: 'GitHub',
+      href: 'https://github.com/Mohammadk88',
+      color: 'hover:text-gray-900 dark:hover:text-white'
+    },
+    {
+      icon: Twitter,
+      label: 'Twitter',
+      href: 'https://twitter.com/mohammad_kfelati',
+      color: 'hover:text-blue-400'
+    },
+    {
+      icon: Globe,
+      label: 'Portfolio',
+      href: 'https://mohammadkfelati.com',
+      color: 'hover:text-primary'
+    }
+  ];
+
+  const workingHours = [
+    { 
+      day: locale === 'ar' ? 'الاثنين - الجمعة' : 
+           locale === 'tr' ? 'Pazartesi - Cuma' : 'Monday - Friday', 
+      hours: '9:00 AM - 6:00 PM' 
+    },
+    { 
+      day: locale === 'ar' ? 'السبت' : 
+           locale === 'tr' ? 'Cumartesi' : 'Saturday', 
+      hours: '10:00 AM - 4:00 PM' 
+    },
+    { 
+      day: locale === 'ar' ? 'الأحد' : 
+           locale === 'tr' ? 'Pazar' : 'Sunday', 
+      hours: locale === 'ar' ? 'بموعد مسبق' : 
+             locale === 'tr' ? 'Randevu ile' : 'By Appointment' 
+    }
+  ];
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-gray-50 dark:bg-slate-900">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <div className="animate-pulse space-y-6">
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+            <div className="space-y-4">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="h-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="py-20 bg-gray-50 dark:bg-slate-900">
       <div className="container mx-auto px-4 max-w-2xl">
@@ -96,16 +189,20 @@ export default function ContactInfo() {
           {/* Header */}
           <div className="text-center lg:text-left">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Let&apos;s Connect
+              {locale === 'ar' ? 'لنتواصل' : 
+               locale === 'tr' ? 'İletişime Geçelim' : 
+               'Let\'s Connect'}
             </h2>
             <p className="text-gray-600 dark:text-gray-300">
-              Choose your preferred way to reach out. I&apos;m here to help bring your ideas to life.
+              {locale === 'ar' ? 'اختر الطريقة المفضلة للتواصل. أنا هنا لمساعدتك في تحقيق أفكارك.' :
+               locale === 'tr' ? 'İletişim kurmak için tercih ettiğiniz yolu seçin. Fikirlerinizi hayata geçirmenize yardımcı olmak için buradayım.' :
+               'Choose your preferred way to reach out. I\'m here to help bring your ideas to life.'}
             </p>
           </div>
 
           {/* Contact Methods */}
           <div className="space-y-4">
-            {contactMethods.map((method, index) => {
+            {getContactMethods().map((method, index) => {
               const IconComponent = method.icon;
               return (
                 <motion.a
@@ -182,7 +279,9 @@ export default function ContactInfo() {
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                  Working Hours
+                  {locale === 'ar' ? 'ساعات العمل' : 
+                   locale === 'tr' ? 'Çalışma Saatleri' : 
+                   'Working Hours'}
                 </h3>
                 <div className="space-y-2">
                   {workingHours.map((schedule, index) => (
@@ -197,7 +296,9 @@ export default function ContactInfo() {
                   ))}
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
-                  * Times shown in Turkey (UTC+3)
+                  {locale === 'ar' ? '* الأوقات بتوقيت تركيا (UTC+3)' :
+                   locale === 'tr' ? '* Saatler Türkiye saatiyle (UTC+3)' :
+                   '* Times shown in Turkey (UTC+3)'}
                 </p>
               </div>
             </div>
@@ -212,7 +313,9 @@ export default function ContactInfo() {
             className="text-center"
           >
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-              Follow Me
+              {locale === 'ar' ? 'تابعني' : 
+               locale === 'tr' ? 'Beni Takip Edin' : 
+               'Follow Me'}
             </h3>
             <div className="flex justify-center gap-4">
               {socialLinks.map((social, index) => {

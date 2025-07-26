@@ -2,7 +2,13 @@ import ContactHero from '@/components/sections/ContactHero';
 import ContactForm from '@/components/sections/ContactForm';
 import ContactInfo from '@/components/sections/ContactInfo';
 
-export default function ContactPage() {
+interface ContactPageProps {
+  params: {
+    locale: string;
+  };
+}
+
+export default function ContactPage({ params }: ContactPageProps) {
   return (
     <div className="min-h-screen">
       <ContactHero />

@@ -1,223 +1,505 @@
-import { prisma } from '@/lib/prisma';
+'use client';
 
-export default async function ServicesPage({
-  params
-}: {
-  params: { locale: string };
-}) {
-  const { locale } = await params;
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { 
+  Star, 
+  Check, 
+  Zap, 
+  Crown, 
+  Rocket, 
+  Shield,
+  Bot,
+  HeadphonesIcon,
+  Sparkles,
+  Calendar,
+  CreditCard,
+  ArrowRight,
+  ExternalLink,
+  Package,
+  RefreshCw
+} from 'lucide-react';
 
-  // Fetch one-time services (pricing plans) from database
-  const oneTimeServices = await prisma.pricingPlan.findMany({
-    where: { lang: locale },
-    orderBy: { price: 'asc' }
-  });
+interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  features: string;
+  lang: string;
+  popular: boolean;
+}
 
-  // Fetch recurring services from database
-  const recurringServices = await prisma.recurringService.findMany({
-    where: { lang: locale },
-    orderBy: { price: 'asc' }
-  });
+interface RecurringService {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  features: string;
+  lang: string;
+  billing: string;
+}
 
-  // Fetch WhatsApp number from ContactInfo
-  const whatsappContact = await prisma.contactInfo.findFirst({
-    where: { 
-      type: 'phone',
-      isPrimary: true 
-    }
-  });
+interface ContactInfo {
+  type: string;
+  value: string;
+  label: string;
+}
 
-  const whatsappNumber = whatsappContact?.value || '905xxxxxxxxx';
+const packageIcons = {
+  starter: Rocket,
+  professional: Crown,
+  enterprise: Shield,
+  seed: Sparkles,
+  growth: ArrowRight,
+  diamond: Star,
+  content_marketing: Sparkles,
+  technical_support: HeadphonesIcon,
+  ai_assistant: Bot,
+  analytics_insights: Check,
+  security_plus: Shield,
+  creative_design: Star
+};
 
-  // Helper function to create WhatsApp link
-  const createWhatsAppLink = (planName: string, price: number, isRecurring: boolean = false) => {
-    const priceText = isRecurring ? 
-      (locale === 'ar' ? `$${price}/شهر` : locale === 'tr' ? `$${price}/ay` : `$${price}/month`) :
-      `$${price}`;
+const packageColors = {
+  starter: 'from-blue-500 to-purple-600',
+  professional: 'from-purple-600 to-pink-600',
+  enterprise: 'from-pink-600 to-red-600',
+  seed: 'from-green-400 to-blue-500',
+  growth: 'from-emerald-500 to-teal-600',
+  diamond: 'from-indigo-600 to-purple-700',
+  content_marketing: 'from-green-500 to-blue-500',
+  technical_support: 'from-orange-500 to-red-500',
+  ai_assistant: 'from-violet-500 to-purple-600',
+  analytics_insights: 'from-cyan-500 to-blue-600',
+  security_plus: 'from-red-500 to-pink-600',
+  creative_design: 'from-pink-500 to-rose-600'
+};
+
+const packageAccents = {
+  starter: 'border-blue-500/20 shadow-blue-500/10',
+  professional: 'border-purple-500/20 shadow-purple-500/10',
+  enterprise: 'border-pink-500/20 shadow-pink-500/10',
+  seed: 'border-green-500/20 shadow-green-500/10',
+  growth: 'border-emerald-500/20 shadow-emerald-500/10',
+  diamond: 'border-indigo-500/20 shadow-indigo-500/10',
+  content_marketing: 'border-green-500/20 shadow-green-500/10',
+  technical_support: 'border-orange-500/20 shadow-orange-500/10',
+  ai_assistant: 'border-violet-500/20 shadow-violet-500/10',
+  analytics_insights: 'border-cyan-500/20 shadow-cyan-500/10',
+  security_plus: 'border-red-500/20 shadow-red-500/10',
+  creative_design: 'border-pink-500/20 shadow-pink-500/10'
+};
+
+export default function ServicesPage({ params }: { params: { locale: string } }) {
+  const locale = params.locale;
+  const t = useTranslations('services');
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [recurringServices, setRecurringServices] = useState<RecurringService[]>([]);
+  const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
+  const [activeTab, setActiveTab] = useState<'packages' | 'subscriptions'>('packages');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [plansRes, recurringRes, contactRes] = await Promise.all([
+          fetch(`/api/pricing-plans?lang=${locale}`),
+          fetch(`/api/recurring-services?lang=${locale}`),
+          fetch('/api/contact-info')
+        ]);
+
+        const [plans, recurring, contact] = await Promise.all([
+          plansRes.json(),
+          recurringRes.json(),
+          contactRes.json()
+        ]);
+
+        setPricingPlans(plans);
+        setRecurringServices(recurring);
+        setContactInfo(contact);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [locale]);
+
+  const whatsappContact = contactInfo.find(c => c.type === 'phone')?.value || '';
+  
+  const generateWhatsAppLink = (serviceName: string, price: number, type: 'package' | 'subscription') => {
+    const message = type === 'package' 
+      ? `مرحباً! أريد الاستفسار عن باقة "${serviceName}" بسعر $${price}`
+      : `مرحباً! أريد الاستفسار عن خدمة "${serviceName}" الشهرية بسعر $${price}`;
     
-    const message = locale === 'ar' 
-      ? `مرحباً، أرغب بالاشتراك في باقة ${planName} بسعر ${priceText}`
-      : locale === 'tr'
-      ? `Merhaba, ${planName} paketine ${priceText} fiyatıyla abone olmak istiyorum`
-      : `Hello, I would like to subscribe to the ${planName} package for ${priceText}`;
-    
-    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/${whatsappContact.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
   };
 
+  const parseFeatures = (featuresString: string) => {
+    try {
+      const parsed = JSON.parse(featuresString);
+      return {
+        description: parsed.description || '',
+        features: parsed.features || [],
+        technologies: parsed.technologies || [],
+        deliveryTime: parsed.deliveryTime || '',
+        category: parsed.category || ''
+      };
+    } catch {
+      return {
+        description: '',
+        features: [],
+        technologies: [],
+        deliveryTime: '',
+        category: ''
+      };
+    }
+  };
+
+  const PackageCard = ({ plan }: { plan: PricingPlan }) => {
+    const details = parseFeatures(plan.features);
+    const IconComponent = packageIcons[details.category as keyof typeof packageIcons] || Rocket;
+    const gradientColor = packageColors[details.category as keyof typeof packageColors] || 'from-blue-500 to-purple-600';
+    const accentColor = packageAccents[details.category as keyof typeof packageAccents] || 'border-blue-500/20 shadow-blue-500/10';
+
+    return (
+      <motion.div
+        layout
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        whileHover={{ y: -10, scale: 1.02 }}
+        className={`relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 border-2 ${accentColor} shadow-2xl transition-all duration-500 ${
+          plan.popular ? 'ring-4 ring-purple-500/30 scale-105' : ''
+        }`}
+      >
+        {plan.popular && (
+          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
+              <Star className="w-4 h-4 fill-current" />
+              {t('mostPopular')}
+            </div>
+          </div>
+        )}
+
+        {/* Header with Icon */}
+        <div className={`relative px-8 pt-8 pb-6 bg-gradient-to-br ${gradientColor}`}>
+          <div className="absolute top-4 right-4">
+            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <IconComponent className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          
+          <div className="text-white">
+            <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+            <p className="text-white/80 text-sm leading-relaxed">{details.description}</p>
+          </div>
+
+          {/* Price */}
+          <div className="mt-6 flex items-baseline">
+            <span className="text-5xl font-bold text-white">${plan.price}</span>
+            <span className="text-white/60 ml-2 text-lg">{plan.currency}</span>
+          </div>
+
+          {details.deliveryTime && (
+            <div className="mt-3 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+              <Calendar className="w-4 h-4 text-white" />
+              <span className="text-white text-sm">{details.deliveryTime}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="px-8 py-6">
+          {/* Features */}
+          <div className="space-y-4">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <Check className="w-5 h-5 text-green-500" />
+              {t('included')}
+            </h4>
+            
+            <div className="space-y-3">
+              {details.features.map((feature: string, index: number) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-start gap-3"
+                >
+                  <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mt-0.5">
+                    <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
+                  </div>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{feature}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Technologies */}
+          {details.technologies && details.technologies.length > 0 && (
+            <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
+              <h5 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
+                {t('technologies')}
+              </h5>
+              <div className="flex flex-wrap gap-2">
+                {details.technologies.map((tech: string, index: number) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* CTA Button */}
+        <div className="px-8 pb-8">
+          <motion.a
+            href={generateWhatsAppLink(plan.name, plan.price, 'package')}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`w-full bg-gradient-to-r ${gradientColor} text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-xl group`}
+          >
+            <span>{t('getStarted')}</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ExternalLink className="w-4 h-4 opacity-70" />
+          </motion.a>
+        </div>
+      </motion.div>
+    );
+  };
+
+  const SubscriptionCard = ({ service }: { service: RecurringService }) => {
+    const details = JSON.parse(service.features);
+    const IconComponent = packageIcons[details.category as keyof typeof packageIcons] || Bot;
+    const gradientColor = packageColors[details.category as keyof typeof packageColors] || 'from-blue-500 to-purple-600';
+    const accentColor = packageAccents[details.category as keyof typeof packageAccents] || 'border-blue-500/20 shadow-blue-500/10';
+
+    return (
+      <motion.div
+        layout
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        whileHover={{ y: -10, scale: 1.02 }}
+        className={`relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 border-2 ${accentColor} shadow-2xl transition-all duration-500`}
+      >
+        {/* Header */}
+        <div className={`relative px-8 pt-8 pb-6 bg-gradient-to-br ${gradientColor}`}>
+          <div className="absolute top-4 right-4">
+            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <IconComponent className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          
+          <div className="text-white">
+            <h3 className="text-2xl font-bold mb-2">{service.name}</h3>
+            <p className="text-white/80 text-sm leading-relaxed">{service.description}</p>
+          </div>
+
+          {/* Price */}
+          <div className="mt-6 flex items-baseline">
+            <span className="text-5xl font-bold text-white">${service.price}</span>
+            <span className="text-white/60 ml-2 text-lg">/{t('month')}</span>
+          </div>
+
+          <div className="mt-3 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+            <CreditCard className="w-4 h-4 text-white" />
+            <span className="text-white text-sm">{t('monthlyBilling')}</span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="px-8 py-6">
+          <div className="space-y-4">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <Zap className="w-5 h-5 text-yellow-500" />
+              {t('monthlyIncludes')}
+            </h4>
+            
+            <div className="space-y-3">
+              {details.features.map((feature: string, index: number) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-start gap-3"
+                >
+                  <div className="w-5 h-5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mt-0.5">
+                    <Zap className="w-3 h-3 text-yellow-600 dark:text-yellow-400" />
+                  </div>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{feature}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Technologies */}
+          {details.technologies && details.technologies.length > 0 && (
+            <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
+              <h5 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
+                {t('tools')}
+              </h5>
+              <div className="flex flex-wrap gap-2">
+                {details.technologies.map((tech: string, index: number) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* CTA Button */}
+        <div className="px-8 pb-8">
+          <motion.a
+            href={generateWhatsAppLink(service.name, service.price, 'subscription')}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`w-full bg-gradient-to-r ${gradientColor} text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-xl group`}
+          >
+            <span>{t('subscribe')}</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ExternalLink className="w-4 h-4 opacity-70" />
+          </motion.a>
+        </div>
+      </motion.div>
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-4">
-            {locale === 'ar' ? 'الخدمات والأسعار' : locale === 'tr' ? 'Hizmetler ve Fiyatlar' : 'Services & Pricing'}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full mb-6">
+            <Sparkles className="w-5 h-5" />
+            <span className="font-semibold">{t('premiumServices')}</span>
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            {t('title')}
           </h1>
-          <p className="text-xl text-gray-600">
-            {locale === 'ar' ? 'اختر الحل المناسب لمشروعك' : 
-             locale === 'tr' ? 'Projeniz için uygun çözümü seçin' : 
-             'Choose the right solution for your project'}
+          
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            {t('subtitle')}
           </p>
-        </div>
+        </motion.div>
 
-        {/* One-time Services Section */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
-              {locale === 'ar' ? 'خدمات لمرة واحدة' : locale === 'tr' ? 'Tek Seferlik Hizmetler' : 'One-time Services'}
-            </h2>
-            <p className="text-lg text-gray-600">
-              {locale === 'ar' ? 'مشاريع مكتملة بسعر ثابت' : 
-               locale === 'tr' ? 'Sabit fiyatla tamamlanan projeler' : 
-               'Complete projects with fixed pricing'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {oneTimeServices.map((service) => (
-              <div key={service.id} className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-2 relative ${
-                service.popular ? 'border-blue-500 transform scale-105' : 'border-gray-200 dark:border-gray-700'
-              }`}>
-                {service.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      {locale === 'ar' ? 'الأكثر شعبية' : locale === 'tr' ? 'En Popüler' : 'Most Popular'}
-                    </span>
-                  </div>
-                )}
-                
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold mb-2">{service.name}</h3>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">
-                    ${service.price}
-                    <span className="text-lg text-gray-500"> {locale === 'ar' ? 'لمرة واحدة' : locale === 'tr' ? 'tek seferlik' : 'one-time'}</span>
-                  </div>
-                </div>
-
-                <ul className="space-y-3 mb-6">
-                  {JSON.parse(service.features).map((feature: string, index: number) => (
-                    <li key={index} className="flex items-start">
-                      <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                        <span className="text-white text-xs">✓</span>
-                      </span>
-                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="space-y-3">
-                  {/* Primary WhatsApp CTA */}
-                  <a
-                    href={createWhatsAppLink(service.name, service.price)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 ${
-                      service.popular 
-                        ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.787"/>
-                    </svg>
-                    {locale === 'ar' ? 'تواصل عبر واتساب' : locale === 'tr' ? 'WhatsApp ile İletişim' : 'Contact via WhatsApp'}
-                  </a>
-
-                  {/* Secondary Direct Payment Link */}
-                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                    {locale === 'ar' ? 'أو ' : locale === 'tr' ? 'veya ' : 'or '}
-                    <a 
-                      href={`/pay/one-time-${service.id}`}
-                      className="text-blue-600 dark:text-blue-400 underline hover:text-blue-700 dark:hover:text-blue-300"
-                    >
-                      {locale === 'ar' ? 'ادفع مباشرة الآن' : locale === 'tr' ? 'Şimdi Doğrudan Öde' : 'Pay Directly Now'}
-                    </a>
-                  </p>
-                </div>
-              </div>
-            ))}
+        {/* Tab Navigation */}
+        <div className="flex justify-center mb-12">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-2 shadow-lg border border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setActiveTab('packages')}
+              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                activeTab === 'packages'
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400'
+              }`}
+            >
+              <Package className="w-5 h-5" />
+              {t('oneTimePackages')}
+            </button>
+            <button
+              onClick={() => setActiveTab('subscriptions')}
+              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                activeTab === 'subscriptions'
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400'
+              }`}
+            >
+              <RefreshCw className="w-5 h-5" />
+              {t('monthlySubscriptions')}
+            </button>
           </div>
         </div>
 
-        {/* Recurring Services Section */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
-              {locale === 'ar' ? 'خدمات متكررة' : locale === 'tr' ? 'Sürekli Hizmetler' : 'Recurring Services'}
-            </h2>
-            <p className="text-lg text-gray-600">
-              {locale === 'ar' ? 'اشتراكات شهرية ودعم مستمر' : 
-               locale === 'tr' ? 'Aylık abonelikler ve sürekli destek' : 
-               'Monthly subscriptions and ongoing support'}
-            </p>
+        {/* Content */}
+        <AnimatePresence mode="wait">
+          {activeTab === 'packages' ? (
+            <motion.div
+              key="packages"
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            >
+              {pricingPlans.map((plan) => (
+                <PackageCard key={plan.id} plan={plan} />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="subscriptions"
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 100 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            >
+              {recurringServices.map((service) => (
+                <SubscriptionCard key={service.id} service={service} />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-20 text-center"
+        >
+          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-12 text-white">
+            <h2 className="text-3xl font-bold mb-4">{t('customSolution')}</h2>
+            <p className="text-xl mb-8 opacity-90">{t('customDescription')}</p>
+            <motion.a
+              href={generateWhatsAppLink('استشارة مخصصة', 0, 'package')}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 bg-white text-purple-600 font-bold py-4 px-8 rounded-2xl hover:shadow-xl transition-all duration-300 group"
+            >
+              <span>{t('contactUs')}</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ExternalLink className="w-4 h-4 opacity-70" />
+            </motion.a>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recurringServices.map((service) => (
-              <div key={service.id} className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-2 relative ${
-                service.popular ? 'border-green-500 transform scale-105' : 'border-gray-200 dark:border-gray-700'
-              }`}>
-                {service.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      {locale === 'ar' ? 'الأكثر شعبية' : locale === 'tr' ? 'En Popüler' : 'Most Popular'}
-                    </span>
-                  </div>
-                )}
-                
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold mb-2">{service.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">{service.description}</p>
-                  <div className="text-3xl font-bold text-green-600 mb-2">
-                    ${service.price}
-                    <span className="text-lg text-gray-500">
-                      /{locale === 'ar' ? 'شهر' : locale === 'tr' ? 'ay' : 'month'}
-                    </span>
-                  </div>
-                </div>
-
-                <ul className="space-y-3 mb-6">
-                  {JSON.parse(service.features).map((feature: string, index: number) => (
-                    <li key={index} className="flex items-start">
-                      <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                        <span className="text-white text-xs">✓</span>
-                      </span>
-                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="space-y-3">
-                  {/* Primary WhatsApp CTA */}
-                  <a
-                    href={createWhatsAppLink(service.name, service.price, true)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 ${
-                      service.popular 
-                        ? 'bg-green-600 text-white hover:bg-green-700' 
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.787"/>
-                    </svg>
-                    {locale === 'ar' ? 'تواصل عبر واتساب' : locale === 'tr' ? 'WhatsApp ile İletişim' : 'Contact via WhatsApp'}
-                  </a>
-
-                  {/* Secondary Direct Payment Link */}
-                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                    {locale === 'ar' ? 'أو ' : locale === 'tr' ? 'veya ' : 'or '}
-                    <a 
-                      href={`/pay/recurring-${service.id}`}
-                      className="text-green-600 dark:text-green-400 underline hover:text-green-700 dark:hover:text-green-300"
-                    >
-                      {locale === 'ar' ? 'ادفع مباشرة الآن' : locale === 'tr' ? 'Şimdi Doğrudan Öde' : 'Pay Directly Now'}
-                    </a>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

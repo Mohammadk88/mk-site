@@ -39,9 +39,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
-        arabic: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
-        display: ['Cal Sans', 'var(--font-inter)', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'SF Pro Display', 'SF Pro Text', 'system-ui', '-apple-system', 'sans-serif'],
+        arabic: ['var(--font-cairo)', 'var(--font-noto-arabic)', 'Amiri', 'Noto Sans Arabic', 'Arial', 'system-ui', 'sans-serif'],
+        inter: ['var(--font-inter)', 'SF Pro Display', 'SF Pro Text', 'system-ui', '-apple-system', 'sans-serif'],
+        cairo: ['var(--font-cairo)', 'var(--font-noto-arabic)', 'Amiri', 'Noto Sans Arabic', 'Arial', 'system-ui', 'sans-serif'],
+        display: ['Cal Sans', 'var(--font-inter)', 'SF Pro Display', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

@@ -7,11 +7,11 @@ export default createMiddleware({
   // Used when no locale matches
   defaultLocale: 'en',
 
-  // The prefix for locale-specific routes
-  localePrefix: 'as-needed'
+  // Always use locale prefix for clarity
+  localePrefix: 'always'
 });
 
 export const config = {
   // Match only internationalized pathnames, exclude admin and api routes
-  matcher: ['/', '/(ar|tr)/:path*', '/((?!api|admin|_next|_vercel|.*\\..*).*)']
+  matcher: ['/((?!api|admin|_next|_vercel|.*\\..*).*)']
 };

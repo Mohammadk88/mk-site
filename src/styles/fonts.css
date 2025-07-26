@@ -1,0 +1,172 @@
+/* Font optimizations for all languages */
+
+/* Global font settings */
+* {
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Arabic Language Fonts - Cairo and Noto Sans Arabic */
+.font-arabic {
+  font-family: var(--font-cairo), var(--font-noto-arabic), 'Amiri', 'Noto Sans Arabic', 'Tahoma', 'Arial', system-ui, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
+}
+
+/* English Language Fonts - Inter */
+.font-sans,
+.font-inter {
+  font-family: var(--font-inter), 'SF Pro Display', 'SF Pro Text', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif';
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "cv02" 1, "cv03" 1, "cv04" 1;
+}
+
+/* Arabic typography improvements */
+[dir="rtl"] {
+  font-size: 1.025rem;
+  line-height: 1.75;
+  word-spacing: 0.02em;
+}
+
+[dir="rtl"] h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+[dir="rtl"] h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+[dir="rtl"] h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+[dir="rtl"] p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+[dir="rtl"] .text-sm {
+  font-size: 0.925rem;
+  line-height: 1.6;
+}
+
+[dir="rtl"] .text-lg {
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+[dir="rtl"] .text-xl {
+  font-size: 1.35rem;
+  line-height: 1.6;
+}
+
+[dir="rtl"] .text-2xl {
+  font-size: 1.7rem;
+  line-height: 1.4;
+}
+
+[dir="rtl"] .text-3xl {
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+/* English/Turkish typography improvements */
+[dir="ltr"] {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+[dir="ltr"] h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+[dir="ltr"] h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+[dir="ltr"] h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+[dir="ltr"] p {
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  [dir="rtl"] {
+    font-size: 1.1rem;
+    line-height: 1.9;
+  }
+  
+  [dir="rtl"] h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  
+  [dir="rtl"] h2 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+  
+  [dir="rtl"] p {
+    font-size: 1.075rem;
+    line-height: 1.85;
+  }
+  
+  [dir="ltr"] h1 {
+    font-size: 1.875rem;
+    line-height: 1.1;
+  }
+  
+  [dir="ltr"] h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+}
+
+/* Button text optimizations */
+[dir="rtl"] button,
+[dir="rtl"] .btn {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+[dir="ltr"] button,
+[dir="ltr"] .btn {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Navigation text */
+[dir="rtl"] nav a,
+[dir="rtl"] .nav-link {
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+[dir="ltr"] nav a,
+[dir="ltr"] .nav-link {
+  font-weight: 500;
+  font-size: 1rem;
+}

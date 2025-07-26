@@ -4,7 +4,8 @@
     "about": "About",
     "projects": "Projects",
     "services": "Services & Pricing",
-    "contact": "Contact"
+    "contact": "Contact",
+    "consultation": "Get Free Consultation"
   },
   "hero": {
     "greeting": "Hi, I'm Mohammad Kfelati",
@@ -53,25 +54,32 @@
     }
   },
   "services": {
-    "title": "Services & Pricing",
-    "subtitle": "18 completed programming projects across diverse domains",
-    "completedProjects": "18 Completed Projects",
-    "tech": {
-      "title": "Programming Services",
-      "website": "Personal Websites & CV Builders",
-      "ecommerce": "E-commerce Platforms",
-      "mobile": "Mobile Applications (iOS & Android)",
-      "ai": "AI-Powered Chat Systems",
-      "erp": "Enterprise Resource Planning (ERP) Systems",
-      "crm": "Customer Relationship Management (CRM)",
-      "school": "School Management Systems",
-      "hospital": "Hospital Management Systems",
-      "restaurant": "Restaurant Management Systems",
-      "delivery": "Food Delivery Applications",
-      "saas": "Custom SaaS Solutions",
-      "startup": "Startup Project Management",
-      "support": "Monthly Maintenance & Support"
-    }
+    "title": "My Programming Services",
+    "subtitle": "Innovative software solutions inspired by real projects and designed to achieve your business goals",
+    "premiumServices": "Premium Services",
+    "oneTimePackages": "One-Time Packages",
+    "monthlySubscriptions": "Monthly Subscriptions",
+    "mostPopular": "Most Popular",
+    "included": "Included",
+    "technologies": "Technologies Used",
+    "tools": "Tools Used",
+    "getStarted": "Get Started",
+    "subscribe": "Subscribe Now",
+    "month": "month",
+    "monthlyBilling": "Monthly Billing",
+    "monthlyIncludes": "Monthly Includes",
+    "customSolution": "Need a Custom Solution?",
+    "customDescription": "Contact me to discuss your project and get a free consultation",
+    "contactUs": "Contact Me",
+    "whatsappNote": "💬 For custom pricing quote, contact us via WhatsApp",
+    "customProject": "Custom Project?",
+    "customProjectDesc": "Have a unique project idea? Contact us to discuss your requirements and get a custom solution tailored to your needs.",
+    "getFreeConsultation": "Get Free Consultation",
+    "contactViaWhatsApp": "Contact via WhatsApp",
+    "duration": "Duration:",
+    "features": "Features:",
+    "andMoreFeatures": "and {count} more features...",
+    "inquireViaWhatsApp": "Inquire via WhatsApp"
   },
   "pricing": {
     "title": "Services & Pricing",
@@ -118,13 +126,13 @@
   },
   "contact": {
     "title": "Let's Work Together",
-    "subtitle": "Ready to bring your ideas to life",
+    "subtitle": "Fill out the form below and I'll get back to you within 24 hours.",
     "form": {
       "name": "Your Name",
       "email": "Email Address",
       "subject": "Subject",
-      "message": "Your Message",
-      "budget": "Project Budget",
+      "message": "Tell me about your project, goals, and any specific requirements you have in mind...",
+      "budget": "Select budget range",
       "timeline": "Timeline",
       "send": "Send Message"
     },
@@ -172,31 +180,8 @@
       "contact": "Contact"
     }
   },
-  "payment": {
-    "title": "Complete Your Payment",
-    "description": "Secure payment processing powered by Paddle",
-    "processing": "Processing payment...",
-    "processOrder": "Process Order",
-    "security": "🔒 Your payment information is secure and encrypted",
-    "backToServices": "Back to Services",
-    "success": {
-      "title": "Payment Successful!",
-      "message": "Thank you for your purchase. Your payment has been processed successfully.",
-      "transactionId": "Transaction ID",
-      "nextSteps": "What happens next?",
-      "step1": "You will receive a confirmation email shortly",
-      "step2": "I will contact you within 24 hours to discuss project details",
-      "step3": "Project development will begin as scheduled",
-      "contactUs": "Contact Me",
-      "backToServices": "Back to Services"
-    },
-    "error": {
-      "title": "Payment Failed",
-      "message": "We couldn't process your payment. Please try again or contact support.",
-      "retry": "Try Again"
-    }
-  },
   "whatsapp": {
-    "tooltip": "💬 Need help with a project? Let's chat!"
+    "tooltip": "💬 Need help with a project? Let's chat!",
+    "consultationMessage": "Hello, I would like to request a free 10-minute technical consultation"
   }
 }

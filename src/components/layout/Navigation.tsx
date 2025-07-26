@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -39,9 +39,40 @@ export default function Navigation() {
   const [isDark, setIsDark] = useState(false);
   const languageDropdownRef = useRef<HTMLDivElement>(null);
   
-  const locale = useLocale();
   const t = useTranslations('nav');
   const pathname = usePathname();
+
+  // Extract locale from pathname more reliably
+  const extractLocaleFromPath = () => {
+    // Remove leading slash and split
+    const segments = pathname.split('/').filter(Boolean);
+    
+    // Check if first segment is a valid locale
+    if (segments.length > 0 && ['ar', 'tr'].includes(segments[0])) {
+      return segments[0];
+    }
+    
+    // Default to English if no locale in path or invalid locale
+    return 'en';
+  };
+  
+  const localeFromPath = extractLocaleFromPath();
+  
+  // Use the locale from path as it's more reliable for the UI display
+  const locale = localeFromPath;
+
+  // Generate WhatsApp consultation message based on locale
+  const getConsultationMessage = () => {
+    const messages = {
+      ar: "مرحباً، أنا أطلب استشارة تقنية مجانية لمدة 10 دقائق فقط",
+      en: "Hello, I would like to request a free 10-minute technical consultation",
+      tr: "Merhaba, 10 dakikalık ücretsiz teknik danışmanlık talep etmek istiyorum"
+    };
+    return messages[locale as keyof typeof messages] || messages.en;
+  };
+
+  const phoneNumber = "+905376061625";
+  const whatsappConsultationUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(getConsultationMessage())}`;
 
   // Close language dropdown when clicking outside
   useEffect(() => {
@@ -66,6 +97,9 @@ export default function Navigation() {
   };
 
   const changeLanguage = (newLocale: string) => {
+    // Close the dropdown first
+    setLanguageMenuOpen(false);
+    
     // Get the current path without locale
     let pathWithoutLocale = pathname;
     
@@ -73,20 +107,8 @@ export default function Navigation() {
     const localePattern = new RegExp(`^/(en|ar|tr)`);
     pathWithoutLocale = pathname.replace(localePattern, '') || '/';
     
-    // Create the new path
-    let newPath;
-    if (newLocale === 'en') {
-      // English is the default locale, no prefix needed
-      newPath = pathWithoutLocale === '/' ? '/' : pathWithoutLocale;
-    } else {
-      // Add the locale prefix for non-English locales
-      newPath = `/${newLocale}${pathWithoutLocale}`;
-    }
-    
-    // Ensure the path starts with /
-    if (!newPath.startsWith('/')) {
-      newPath = `/${newPath}`;
-    }
+    // Create the new path with locale prefix (always include locale now)
+    const newPath = `/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
     
     // Use replace instead of push to avoid history issues and force refresh
     window.location.href = newPath;
@@ -104,7 +126,7 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             className="flex-shrink-0"
           >
-            <Link href={locale === 'en' ? '/' : `/${locale}`} className="flex items-center space-x-2">
+            <Link href={`/${locale}`} className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">MK</span>
               </div>
@@ -125,7 +147,7 @@ export default function Navigation() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Link
-                    href={locale === 'en' ? item.href : `/${locale}${item.href}`}
+                    href={`/${locale}${item.href}`}
                     className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
                   >
                     <item.icon className="w-4 h-4" />
@@ -208,9 +230,9 @@ export default function Navigation() {
             </Button>
 
             {/* CTA Button */}
-            <Link href="/contact">
+            <Link href={whatsappConsultationUrl} target="_blank" rel="noopener noreferrer">
               <Button className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white">
-                Get Started
+                {t('consultation')}
               </Button>
             </Link>
           </div>
@@ -259,7 +281,7 @@ export default function Navigation() {
               {navigation.map((item) => (
                 <Link
                   key={item.name}
-                  href={locale === 'en' ? item.href : `/${locale}${item.href}`}
+                  href={`/${locale}${item.href}`}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
                 >
@@ -301,9 +323,9 @@ export default function Navigation() {
                 </div>
                 
                 <div className="px-3 py-2">
-                  <Link href={locale === 'en' ? '/contact' : `/${locale}/contact`}>
+                  <Link href={whatsappConsultationUrl} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white">
-                      {t('contact')}
+                      {t('consultation')}
                     </Button>
                   </Link>
                 </div>

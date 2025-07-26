@@ -2,8 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { Mail, MessageCircle, Phone } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 
 export default function ContactHero() {
+  const t = useTranslations('contact');
+  const params = useParams();
+  const locale = params.locale as string;
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background */}
@@ -25,7 +30,11 @@ export default function ContactHero() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary"
             >
               <MessageCircle className="w-4 h-4" />
-              <span className="text-sm font-medium">Let&apos;s Connect</span>
+              <span className="text-sm font-medium">
+                {locale === 'ar' ? 'لنتواصل' : 
+                 locale === 'tr' ? 'İletişime Geçelim' : 
+                 'Let\'s Connect'}
+              </span>
             </motion.div>
 
             {/* Title */}
@@ -35,8 +44,20 @@ export default function ContactHero() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-4xl lg:text-6xl font-bold"
             >
-              Get In{' '}
-              <span className="gradient-text">Touch</span>
+              {locale === 'ar' ? (
+                <>
+                  <span className="gradient-text">تواصل</span> معي
+                </>
+              ) : locale === 'tr' ? (
+                <>
+                  <span className="gradient-text">İletişime</span> Geç
+                </>
+              ) : (
+                <>
+                  Get In{' '}
+                  <span className="gradient-text">Touch</span>
+                </>
+              )}
             </motion.h1>
 
             {/* Description */}
@@ -46,9 +67,12 @@ export default function ContactHero() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed"
             >
-              Ready to bring your ideas to life? Let&apos;s discuss your project and see 
-              how I can help you achieve your goals. I&apos;m always excited to work on 
-              new challenges and create amazing digital experiences.
+              {locale === 'ar' 
+                ? 'مستعد لتحويل أفكارك إلى واقع؟ دعنا نناقش مشروعك ونرى كيف يمكنني مساعدتك في تحقيق أهدافك. أنا متحمس دائماً للعمل على تحديات جديدة وإنشاء تجارب رقمية مذهلة.'
+                : locale === 'tr'
+                ? 'Fikirlerinizi hayata geçirmeye hazır mısınız? Projenizi tartışalım ve hedeflerinize ulaşmanızda size nasıl yardımcı olabileceğimi görelim. Yeni zorluklarla çalışmak ve harika dijital deneyimler yaratmak için hep heyecanlıyım.'
+                : 'Ready to bring your ideas to life? Let\'s discuss your project and see how I can help you achieve your goals. I\'m always excited to work on new challenges and create amazing digital experiences.'
+              }
             </motion.p>
 
             {/* Quick Contact */}
@@ -60,12 +84,12 @@ export default function ContactHero() {
             >
               <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white dark:bg-slate-800 shadow-lg">
                 <Mail className="w-5 h-5 text-primary" />
-                <span className="text-gray-900 dark:text-white font-medium">hello@example.com</span>
+                <span className="text-gray-900 dark:text-white font-medium">mohammad.kfelati@gmail.com</span>
               </div>
               
               <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white dark:bg-slate-800 shadow-lg">
                 <Phone className="w-5 h-5 text-primary" />
-                <span className="text-gray-900 dark:text-white font-medium">+90 555 123 4567</span>
+                <span className="text-gray-900 dark:text-white font-medium">+90 531 725 5372</span>
               </div>
             </motion.div>
           </motion.div>
