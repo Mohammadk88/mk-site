@@ -19,6 +19,15 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+interface ContactInfo {
+  id: string;
+  type: string;
+  value: string;
+  label: string;
+  lang: string;
+  isPrimary: boolean;
+}
+
 const navigation = [
   { name: 'home', href: '/', icon: Home },
   { name: 'about', href: '/about', icon: User },
@@ -37,10 +46,31 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("+905555555555");
   const languageDropdownRef = useRef<HTMLDivElement>(null);
   
   const t = useTranslations('nav');
   const pathname = usePathname();
+
+  // Fetch WhatsApp number from database
+  useEffect(() => {
+    const fetchWhatsAppNumber = async () => {
+      try {
+        const response = await fetch('/api/contact-info');
+        const contactInfo: ContactInfo[] = await response.json();
+        const whatsappContact = contactInfo.find(
+          (contact) => contact.type === 'phone' && contact.isPrimary
+        );
+        if (whatsappContact) {
+          setPhoneNumber(whatsappContact.value);
+        }
+      } catch (error) {
+        console.error('Error fetching WhatsApp number:', error);
+      }
+    };
+
+    fetchWhatsAppNumber();
+  }, []);
 
   // Extract locale from pathname more reliably
   const extractLocaleFromPath = () => {
@@ -71,8 +101,7 @@ export default function Navigation() {
     return messages[locale as keyof typeof messages] || messages.en;
   };
 
-  const phoneNumber = "+905376061625";
-  const whatsappConsultationUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(getConsultationMessage())}`;
+  const whatsappConsultationUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getConsultationMessage())}`;
 
   // Close language dropdown when clicking outside
   useEffect(() => {

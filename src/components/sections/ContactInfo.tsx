@@ -9,14 +9,9 @@ import {
   Phone, 
   MapPin, 
   Clock, 
-  MessageCircle, 
-  Linkedin, 
-  Github, 
-  Twitter,
-  Calendar,
-  Globe,
-  ExternalLink
+  MessageCircle
 } from 'lucide-react';
+import SocialMediaLinks from '@/components/ui/SocialMediaLinks';
 
 interface ContactInfo {
   id: string;
@@ -113,33 +108,6 @@ export default function ContactInfo() {
 
     return methods;
   };
-
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      href: 'https://linkedin.com/in/mohammad-kfelati',
-      color: 'hover:text-blue-600'
-    },
-    {
-      icon: Github,
-      label: 'GitHub',
-      href: 'https://github.com/Mohammadk88',
-      color: 'hover:text-gray-900 dark:hover:text-white'
-    },
-    {
-      icon: Twitter,
-      label: 'Twitter',
-      href: 'https://twitter.com/mohammad_kfelati',
-      color: 'hover:text-blue-400'
-    },
-    {
-      icon: Globe,
-      label: 'Portfolio',
-      href: 'https://mohammadkfelati.com',
-      color: 'hover:text-primary'
-    }
-  ];
 
   const workingHours = [
     { 
@@ -317,26 +285,8 @@ export default function ContactInfo() {
                locale === 'tr' ? 'Beni Takip Edin' : 
                'Follow Me'}
             </h3>
-            <div className="flex justify-center gap-4">
-              {socialLinks.map((social, index) => {
-                const IconComponent = social.icon;
-                return (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className={`p-3 rounded-full bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 dark:text-gray-400 ${social.color}`}
-                    aria-label={social.label}
-                  >
-                    <IconComponent className="w-5 h-5" />
-                  </motion.a>
-                );
-              })}
+            <div className="flex justify-center">
+              <SocialMediaLinks size="lg" className="gap-4" />
             </div>
           </motion.div>
 

@@ -1,10 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail, Download, Phone, MapPin, Twitter, Instagram, Youtube } from 'lucide-react';
+import { ArrowRight, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
+import SocialMediaLinks from '@/components/ui/SocialMediaLinks';
 import Image from 'next/image';
+import SocialFooter from "@/components/layout/SocialFooter";
 
 interface PersonalInfo {
   id: string;
@@ -32,67 +33,17 @@ interface ContactInfo {
   isPrimary: boolean;
 }
 
-interface SocialMedia {
-  id: string;
-  platform: string;
-  url: string;
-  username: string;
-  isVisible: boolean;
-}
-
-interface Skill {
-  id: string;
-  name: string;
-  category: string;
-  level: number;
-  icon: string;
-}
-
-interface Project {
-  id: string;
-  titleEn: string;
-  titleAr: string;
-  titleTr: string;
-  descriptionEn: string;
-  descriptionAr: string;
-  descriptionTr: string;
-  image: string;
-  demoUrl: string;
-  githubUrl: string;
-  technologies: string;
-  category: string;
-  published: boolean;
-}
-
 interface HeroSectionProps {
   personalInfo: PersonalInfo | null;
   contactInfo: ContactInfo[];
-  socialMedia: SocialMedia[];
-  skills: Skill[];
-  projects: Project[];
   locale: string;
 }
-
-const getSocialIcon = (platform: string) => {
-  switch (platform) {
-    case 'github': return Github;
-    case 'linkedin': return Linkedin;
-    case 'twitter': return Twitter;
-    case 'instagram': return Instagram;
-    case 'youtube': return Youtube;
-    default: return Mail;
-  }
-};
 
 export default function HeroSection({ 
   personalInfo, 
   contactInfo, 
-  socialMedia, 
-  skills, 
-  projects, 
   locale 
 }: HeroSectionProps) {
-  const t = useTranslations('hero');
 
   // Get localized content
   const getName = () => {
@@ -267,14 +218,15 @@ export default function HeroSection({
               {locale === 'ar' ? 'ابدأ مشروعك' : locale === 'tr' ? 'Projenizi Başlatın' : 'Start Your Project'}
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="group border-gray-300 dark:border-gray-600 px-8 py-3"
+            <a 
+              href={personalInfo?.resumeUrl || 'https://linkedin.com/in/mohammadkfelati'} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
-              <Download className="mr-2 w-4 h-4" />
-              {locale === 'ar' ? 'تحميل السيرة الذاتية' : locale === 'tr' ? 'CV İndir' : 'Download CV'}
-            </Button>
+              <Linkedin className="mr-2 w-4 h-4" />
+              {locale === 'ar' ? 'عرض الملف الشخصي' : locale === 'tr' ? 'Profili Görüntüle' : 'View LinkedIn Profile'}
+            </a>
           </motion.div>
 
           {/* Social Media */}
@@ -282,25 +234,10 @@ export default function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="flex items-center justify-center gap-4"
+            className="flex items-center justify-center"
           >
-            {socialMedia.map((social, index) => {
-              const Icon = getSocialIcon(social.platform);
-              return (
-                <motion.a
-                  key={social.id}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                  className="group p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-                >
-                  <Icon className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
-                </motion.a>
-              );
-            })}
+             <SocialFooter />
+            {/* <SocialMediaLinks size="lg" className="gap-6" /> */}
           </motion.div>
         </motion.div>
       </div>

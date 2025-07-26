@@ -5,11 +5,41 @@ import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 
+interface ContactInfo {
+  id: string;
+  type: string;
+  value: string;
+  label: string;
+  lang: string;
+  isPrimary: boolean;
+}
+
 export default function WhatsAppFloat() {
   const [isVisible, setIsVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("+905317255372");
   const t = useTranslations('whatsapp');
   const locale = useLocale();
+
+  // Fetch WhatsApp number from database
+  useEffect(() => {
+    const fetchWhatsAppNumber = async () => {
+      try {
+        const response = await fetch('/api/contact-info');
+        const contactInfo: ContactInfo[] = await response.json();
+        const whatsappContact = contactInfo.find(
+          (contact) => contact.type === 'phone' && contact.isPrimary
+        );
+        if (whatsappContact) {
+          setPhoneNumber(whatsappContact.value);
+        }
+      } catch (error) {
+        console.error('Error fetching WhatsApp number:', error);
+      }
+    };
+
+    fetchWhatsAppNumber();
+  }, []);
 
   // Show button after a delay
   useEffect(() => {
@@ -41,8 +71,7 @@ export default function WhatsAppFloat() {
     return messages[locale as keyof typeof messages] || messages.en;
   };
 
-  const phoneNumber = "+905376061625"; // Updated with actual WhatsApp number
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(getWhatsAppMessage())}`;
+  const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppMessage())}`;
 
   if (!isVisible) return null;
 

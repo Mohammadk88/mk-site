@@ -9,16 +9,9 @@ export default async function Home({
   const { locale } = await params;
 
   // Fetch data from database
-  const [personalInfo, contactInfo, socialMedia, skills, projects] = await Promise.all([
+  const [personalInfo, contactInfo] = await Promise.all([
     prisma.personalInfo.findFirst(),
-    prisma.contactInfo.findMany({ where: { lang: locale } }),
-    prisma.socialMedia.findMany({ where: { isVisible: true } }),
-    prisma.skill.findMany({ orderBy: { level: 'desc' } }),
-    prisma.project.findMany({ 
-      where: { published: true },
-      orderBy: { createdAt: 'desc' },
-      take: 6
-    })
+    prisma.contactInfo.findMany({ where: { lang: locale } })
   ]);
 
   return (
@@ -26,11 +19,9 @@ export default async function Home({
       <HeroSection 
         personalInfo={personalInfo}
         contactInfo={contactInfo}
-        socialMedia={socialMedia}
-        skills={skills}
-        projects={projects}
         locale={locale}
       />
+     
     </div>
   );
 }
