@@ -94,7 +94,7 @@ export default function SocialMediaLinks({
 
   if (loading) {
     return (
-      <div className={`flex gap-4 ${className}`}>
+      <div className={className || 'flex gap-4 justify-center items-center flex-wrap'}>
         {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
@@ -108,7 +108,7 @@ export default function SocialMediaLinks({
   }
 
   return (
-    <div className={`flex gap-4 ${className}`}>
+    <div className={className || 'flex gap-4 justify-center items-center flex-wrap'}>
       {socialMedia.map((social, index) => {
         const IconComponent = socialIcons[social.platform as keyof typeof socialIcons];
         const colorClass = socialColors[social.platform as keyof typeof socialColors];
@@ -131,6 +131,7 @@ export default function SocialMediaLinks({
               hover:scale-110 hover:shadow-lg
               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
               group
+              flex items-center justify-center
             `}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
