@@ -82,7 +82,7 @@ export default function AboutSection() {
 
   const getEmail = () => {
     const emailInfo = contactInfo.find(info => info.type === 'email' && info.isPrimary);
-    return emailInfo?.value || 'mohammad.kfelati@example.com';
+    return emailInfo?.value || 'mohammad.kfelati@gmail.com';
   };
 
   const getLocation = () => {
@@ -176,36 +176,30 @@ export default function AboutSection() {
               </div>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div 
-              className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              <Button size="lg" className="group">
-                <Download className="w-4 h-4 mr-2 group-hover:animate-bounce" />
-                {t('downloadCV')}
-              </Button>
-              <Button variant="outline" size="lg">
-                {locale === 'ar' ? 'شاهد المشاريع' : locale === 'tr' ? 'Projeleri Gör' : 'View Portfolio'}
-              </Button>
-            </motion.div>
-
-            {/* LinkedIn Profile Badge */}
+            {/* Social Media Plugins - LinkedIn & Facebook */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
               className="pt-6"
             >
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-lg inline-block">
-                <div 
-                  className="linkedin-badge"
-                  dangerouslySetInnerHTML={{
-                    __html: `<div class="badge-base LI-profile-badge" data-locale="ar_AE" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="mohammadkfelati" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://tr.linkedin.com/in/mohammadkfelati/ar?trk=profile-badge">محمد قفيلاتي</a></div>`
-                  }}
-                />
+              <div className="flex flex-col lg:flex-row gap-6 items-start">
+                {/* LinkedIn Profile Badge */}
+                <div className="flex-shrink-0">
+                  <div className="badge-base LI-profile-badge" data-locale="ar_AE" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="mohammadkfelati" data-version="v1">
+                    <a className="badge-base__link LI-simple-link" href="https://tr.linkedin.com/in/mohammadkfelati/ar?trk=profile-badge"></a>
+                  </div>
+                </div>
+                
+                {/* Facebook Page Plugin */}
+                <div className="flex-shrink-0">
+                  <div id="fb-root"></div>
+                  <div className="fb-page" data-href="https://www.facebook.com/mohammad.kfelati/" data-tabs="timeline,messages" data-width="340" data-height="280" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true">
+                    <blockquote cite="https://www.facebook.com/mohammad.kfelati/" className="fb-xfbml-parse-ignore">
+                      <a href="https://www.facebook.com/mohammad.kfelati/">‎محمد قفيلاتي‎</a>
+                    </blockquote>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -302,7 +296,12 @@ export default function AboutSection() {
             </div>
           </motion.div>
         </div>
+              
       </div>
+      
+      {/* Scripts for social media plugins */}
+      <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+      <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0&appId=2047229625785909"></script>
     </section>
   );
 }
