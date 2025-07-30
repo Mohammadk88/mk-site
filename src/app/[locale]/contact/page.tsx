@@ -3,9 +3,9 @@ import ContactForm from '@/components/sections/ContactForm';
 import ContactInfo from '@/components/sections/ContactInfo';
 
 interface ContactPageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 export default function ContactPage({ params }: ContactPageProps) {

@@ -6,7 +6,7 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection';
 export default async function AboutPage({
   params
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 

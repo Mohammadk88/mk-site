@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { 
@@ -93,8 +93,8 @@ const packageAccents = {
   creative_design: 'border-pink-500/20 shadow-pink-500/10'
 };
 
-export default function ServicesPage({ params }: { params: { locale: string } }) {
-  const locale = params.locale;
+export default function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
   const t = useTranslations('services');
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
   const [recurringServices, setRecurringServices] = useState<RecurringService[]>([]);
@@ -281,7 +281,7 @@ export default function ServicesPage({ params }: { params: { locale: string } })
   };
 
   const SubscriptionCard = ({ service }: { service: RecurringService }) => {
-    const details = JSON.parse(service.features);
+    const details = parseFeatures(service.features);
     const IconComponent = packageIcons[details.category as keyof typeof packageIcons] || Bot;
     const gradientColor = packageColors[details.category as keyof typeof packageColors] || 'from-blue-500 to-purple-600';
     const accentColor = packageAccents[details.category as keyof typeof packageAccents] || 'border-blue-500/20 shadow-blue-500/10';

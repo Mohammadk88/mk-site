@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export default async function Home({
   params
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
