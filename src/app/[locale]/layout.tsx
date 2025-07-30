@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import "./globals.css";
 import "../../styles/fonts.css";
 import Navigation from "@/components/layout/Navigation";
+import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import WhatsAppFloat from "@/components/ui/WhatsAppFloat";
 import LocaleHandler from "@/components/LocaleHandler";
 
@@ -41,7 +42,8 @@ export default async function LocaleLayout({
       <LocaleHandler locale={locale} />
       <div className={`relative min-h-screen ${getFontClass(locale)}`}>
         <Navigation />
-        <main>{children}</main>
+        <main className="pb-20 md:pb-0">{children}</main>
+        <MobileBottomNav />
         <WhatsAppFloat />
       </div>
     </NextIntlClientProvider>

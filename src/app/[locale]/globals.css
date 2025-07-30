@@ -899,3 +899,22 @@ select:focus {
   font-weight: 600;
   margin-bottom: 1rem;
 }
+
+/* Glass effect utility for modern UI components */
+.glass-effect {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile bottom nav specific styles */
+.mobile-nav-backdrop {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
