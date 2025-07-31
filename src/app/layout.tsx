@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Cairo, Noto_Sans_Arabic } from "next/font/google";
 import "./[locale]/globals.css";
 import "../styles/fonts.css";
+import { ThemeScript } from "../components/theme/ThemeScript";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -55,7 +56,10 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${inter.variable} ${cairo.variable} ${notoSansArabic.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body className={`${inter.variable} ${cairo.variable} ${notoSansArabic.variable} antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200`} suppressHydrationWarning>
         {children}
         {/* LinkedIn Badge Script */}
         <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>

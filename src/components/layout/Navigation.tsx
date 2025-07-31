@@ -8,8 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, 
   X, 
-  Moon, 
-  Sun,
   Globe,
   Code,
   Briefcase,
@@ -18,6 +16,7 @@ import {
   Home
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '../ui/ThemeToggle';
 
 interface ContactInfo {
   id: string;
@@ -45,7 +44,6 @@ const languages = [
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("+905555555555");
   const languageDropdownRef = useRef<HTMLDivElement>(null);
   
@@ -119,11 +117,6 @@ export default function Navigation() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [languageMenuOpen]);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
 
   const changeLanguage = (newLocale: string) => {
     // Close the dropdown first
@@ -245,18 +238,7 @@ export default function Navigation() {
             </div>
 
             {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="w-9 h-9"
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </Button>
+            <ThemeToggle className="w-9 h-9" />
 
             {/* CTA Button */}
             <Link href={whatsappConsultationUrl} target="_blank" rel="noopener noreferrer">
@@ -268,18 +250,7 @@ export default function Navigation() {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="w-9 h-9"
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </Button>
+            <ThemeToggle className="w-9 h-9" />
             
             <Button
               variant="ghost"

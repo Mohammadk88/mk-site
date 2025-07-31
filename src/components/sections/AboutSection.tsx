@@ -96,6 +96,8 @@ export default function AboutSection() {
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900/20" />
       
       <div className="container mx-auto px-4 relative z-10">
+              <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0&appId=2047229625785909"></script>
+
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Side - Content */}
           <motion.div
@@ -196,7 +198,7 @@ export default function AboutSection() {
                   <div id="fb-root"></div>
                   <div className="fb-page" data-href="https://www.facebook.com/mohammad.kfelati/" data-tabs="timeline,messages" data-width="340" data-height="280" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true">
                     <blockquote cite="https://www.facebook.com/mohammad.kfelati/" className="fb-xfbml-parse-ignore">
-                      <a href="https://www.facebook.com/mohammad.kfelati/">‎محمد قفيلاتي‎</a>
+                      <a href="https://www.facebook.com/mohammad.kfelati/">{getName()}</a>
                     </blockquote>
                   </div>
                 </div>
@@ -301,7 +303,6 @@ export default function AboutSection() {
       
       {/* Scripts for social media plugins */}
       <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-      <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0&appId=2047229625785909"></script>
     </section>
   );
 }
