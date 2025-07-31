@@ -48,7 +48,7 @@ export default function ProjectsFilter({
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
           {/* Search */}
-          <motion.div
+         {/*  <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
@@ -62,7 +62,7 @@ export default function ProjectsFilter({
               onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
             />
-          </motion.div>
+          </motion.div> */}
 
           {/* Category Filters */}
           <motion.div
@@ -82,7 +82,7 @@ export default function ProjectsFilter({
                   onClick={() => handleCategoryChange(category.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                     activeCategory === category.id
-                      ? 'bg-primary text-white shadow-lg'
+                      ? 'bg-primary text-black border dark:text-white dark: shadow-lg'
                       : 'bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:bg-primary/10 border border-gray-200 dark:border-slate-600'
                   }`}
                 >
@@ -90,7 +90,7 @@ export default function ProjectsFilter({
                   {projectCounts[category.id] && (
                     <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                       activeCategory === category.id
-                        ? 'bg-white/20 text-white'
+                        ? 'bg-black/20 text-black dark:bg-white/10 dark:text-white'
                         : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400'
                     }`}>
                       {projectCounts[category.id]}

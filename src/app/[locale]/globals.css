@@ -300,6 +300,7 @@ body {
 [dir="rtl"] .text-sm {
   font-size: 0.925rem;
   line-height: 1.6;
+  width: max-content;
 }
 
 [dir="rtl"] .text-lg {
@@ -316,7 +317,9 @@ body {
   font-size: 1.6rem;
   line-height: 1.4;
 }
-
+[dir="rtl"] .text-3xl{
+  text-align: right;
+}
 /* Improve Arabic readability on small screens */
 @media (max-width: 640px) {
   [dir="rtl"] p {
@@ -382,7 +385,7 @@ body {
 .glass-effect {
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 

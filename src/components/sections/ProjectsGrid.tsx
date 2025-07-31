@@ -87,7 +87,7 @@ export default function ProjectsGrid({ projects, locale }: ProjectsGridProps) {
                 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary-600/90 text-white text-xs font-medium backdrop-blur-sm">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary-600/90 dark:text-white text-xs font-medium backdrop-blur-sm">
                     {getCategoryLabel(project.category)}
                   </span>
                 </div>
@@ -104,7 +104,7 @@ export default function ProjectsGrid({ projects, locale }: ProjectsGridProps) {
                   {getProjectTitle(project)}
                 </h3>
 
-                <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
                   {getProjectDescription(project).substring(0, 150)}...
                 </p>
 

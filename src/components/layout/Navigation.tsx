@@ -153,7 +153,7 @@ export default function Navigation() {
                 <span className="text-white font-bold text-lg">MK</span>
               </div>
               <span className="hidden sm:block text-xl font-bold gradient-text">
-                Mohammad Ziad Kfelati
+                Mohammad Kfelati
               </span>
             </Link>
           </motion.div>
@@ -209,7 +209,7 @@ export default function Navigation() {
                     initial={{ opacity: 0, scale: 0.95, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    className="absolute right-0 mt-2 w-52 glass-effect rounded-lg shadow-lg border border-white/20 dark:border-gray-700 py-2 z-50"
+                    className="absolute right-0 mt-2 w-52 glass-effect rounded-lg shadow-lg border border-white/20 w-auto dark:border-gray-700 py-2 z-50"
                   >
                     {languages.map((lang) => (
                       <button
