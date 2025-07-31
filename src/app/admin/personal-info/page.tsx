@@ -1,9 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Save, Edit2, User, Globe, FileText, MapPin, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+interface PersonalInfoDB {
+  id: string;
+  nameEn: string;
+  nameAr: string;
+  nameTr: string;
+  titleEn: string;
+  titleAr: string;
+  titleTr: string;
+  bioEn: string;
+  bioAr: string;
+  bioTr: string;
+  avatar: string;
+  resumeUrl: string;
+  location: string;
+  yearsExp: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface PersonalInfo {
   id: string;
@@ -29,21 +48,65 @@ export default function PersonalInfoManagement() {
     { code: 'tr', name: 'Türkçe' }
   ];
 
-  useEffect(() => {
-    fetchPersonalInfo();
-  }, []);
+  const transformDBDataToPersonalInfo = (data: PersonalInfoDB): PersonalInfo[] => {
+    if (!data) return [];
+    
+    return [
+      {
+        id: `${data.id}-en`,
+        fullName: data.nameEn,
+        title: data.titleEn,
+        bio: data.bioEn,
+        location: data.location,
+        experience: data.yearsExp.toString(),
+        resumeUrl: data.resumeUrl,
+        lang: 'en'
+      },
+      {
+        id: `${data.id}-ar`,
+        fullName: data.nameAr,
+        title: data.titleAr,
+        bio: data.bioAr,
+        location: data.location,
+        experience: data.yearsExp.toString(),
+        resumeUrl: data.resumeUrl,
+        lang: 'ar'
+      },
+      {
+        id: `${data.id}-tr`,
+        fullName: data.nameTr,
+        title: data.titleTr,
+        bio: data.bioTr,
+        location: data.location,
+        experience: data.yearsExp.toString(),
+        resumeUrl: data.resumeUrl,
+        lang: 'tr'
+      }
+    ];
+  };
 
-  const fetchPersonalInfo = async () => {
+  const fetchPersonalInfo = React.useCallback(async () => {
     try {
       const response = await fetch('/api/personal-info');
       const data = await response.json();
-      setPersonalInfo(data);
+      
+      if (data) {
+        const transformedData = transformDBDataToPersonalInfo(data);
+        setPersonalInfo(transformedData);
+      } else {
+        setPersonalInfo([]);
+      }
     } catch (error) {
       console.error('Error fetching personal info:', error);
+      setPersonalInfo([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  React.useEffect(() => {
+    fetchPersonalInfo();
+  }, [fetchPersonalInfo]);
 
   const handleEdit = (item: PersonalInfo) => {
     setEditingId(item.id);
@@ -55,6 +118,44 @@ export default function PersonalInfoManagement() {
     setEditForm({});
   };
 
+interface PersonalInfoUpdateData {
+  nameEn: string;
+  nameAr: string;
+  nameTr: string;
+  titleEn: string;
+  titleAr: string;
+  titleTr: string;
+  bioEn: string;
+  bioAr: string;
+  bioTr: string;
+  location: string;
+  yearsExp: number;
+  resumeUrl: string;
+  avatar: string;
+}
+
+  const transformPersonalInfoToDBData = (personalInfoArray: PersonalInfo[]): PersonalInfoUpdateData => {
+    const enData = personalInfoArray.find(item => item.lang === 'en');
+    const arData = personalInfoArray.find(item => item.lang === 'ar');
+    const trData = personalInfoArray.find(item => item.lang === 'tr');
+
+    return {
+      nameEn: enData?.fullName || '',
+      nameAr: arData?.fullName || '',
+      nameTr: trData?.fullName || '',
+      titleEn: enData?.title || '',
+      titleAr: arData?.title || '',
+      titleTr: trData?.title || '',
+      bioEn: enData?.bio || '',
+      bioAr: arData?.bio || '',
+      bioTr: trData?.bio || '',
+      location: enData?.location || arData?.location || trData?.location || '',
+      yearsExp: parseInt(enData?.experience || arData?.experience || trData?.experience || '0'),
+      resumeUrl: enData?.resumeUrl || arData?.resumeUrl || trData?.resumeUrl || '',
+      avatar: '' // You might want to add avatar handling
+    };
+  };
+
   const handleSaveEdit = async () => {
     if (!editingId || !editForm.fullName || !editForm.title) return;
 
@@ -64,10 +165,13 @@ export default function PersonalInfoManagement() {
         item.id === editingId ? { ...item, ...editForm } : item
       );
 
+      // Transform to database format
+      const dbData = transformPersonalInfoToDBData(updatedData);
+
       const response = await fetch('/api/personal-info', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedData)
+        body: JSON.stringify(dbData)
       });
 
       if (response.ok) {
