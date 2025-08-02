@@ -241,8 +241,8 @@ export default function Navigation() {
             <ThemeToggle className="w-9 h-9" />
 
             {/* CTA Button */}
-            <Link href={whatsappConsultationUrl} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white">
+            <Link href={whatsappConsultationUrl} target="_blank" rel="noopener noreferrer" className='text-sm'>
+              <Button className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white text-sm">
                 {t('consultation')}
               </Button>
             </Link>

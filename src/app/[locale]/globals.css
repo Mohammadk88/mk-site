@@ -296,13 +296,24 @@ body {
   font-weight: 400;
   word-spacing: 0.02em;
 }
-
+.price-title{
+  margin-right: 60px;
+}
+[dir="rtl"] .price-title {
+  margin-right: 60px;
+  margin-left: 0;
+}
 [dir="rtl"] .text-sm {
   font-size: 0.925rem;
   line-height: 1.6;
+  /* width: max-content; */
+}
+.text-sm a, .text-sm span, .text-sm button, .text-sm > button {
   width: max-content;
 }
-
+p{
+  text-align: justify;
+}
 [dir="rtl"] .text-lg {
   font-size: 1.175rem;
   line-height: 1.7;

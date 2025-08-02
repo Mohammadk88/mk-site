@@ -196,8 +196,8 @@ export default function ServicesPage({ params }: { params: Promise<{ locale: str
           </div>
           
           <div className="text-white">
-            <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-            <p className="text-white/80 text-sm leading-relaxed">{details.description}</p>
+            <h3 className="text-2xl price-title font-bold mb-2">{plan.name}</h3>
+            <p className="text-white/80 mt-5 text-sm leading-relaxed">{details.description}</p>
           </div>
 
           {/* Price */}
@@ -485,7 +485,7 @@ export default function ServicesPage({ params }: { params: Promise<{ locale: str
         >
           <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-12 text-white">
             <h2 className="text-3xl font-bold mb-4">{t('customSolution')}</h2>
-            <p className="text-xl mb-8 opacity-90">{t('customDescription')}</p>
+            <p className="text-xl text-center mb-8 opacity-90">{t('customDescription')}</p>
             <motion.a
               href={generateWhatsAppLink('استشارة مخصصة', 0, 'package')}
               target="_blank"
