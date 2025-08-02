@@ -182,6 +182,8 @@
   },
   "whatsapp": {
     "tooltip": "💬 Bir projede yardıma mı ihtiyacınız var? Konuşalım!",
-    "consultationMessage": "Merhaba, 10 dakikalık ücretsiz teknik danışmanlık talep etmek istiyorum"
+    "consultationMessage": "Merhaba, 10 dakikalık ücretsiz teknik danışmanlık talep etmek istiyorum",
+    "packageInquiry": "Merhaba! \"{serviceName}\" paketi hakkında bilgi almak istiyorum, fiyatı ${price}",
+    "subscriptionInquiry": "Merhaba! Aylık \"{serviceName}\" hizmeti hakkında bilgi almak istiyorum, fiyatı ${price}"
   }
 }

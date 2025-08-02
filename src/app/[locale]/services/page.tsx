@@ -96,6 +96,7 @@ const packageAccents = {
 export default function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
   const t = useTranslations('services');
+  const tWhatsApp = useTranslations('whatsapp');
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
   const [recurringServices, setRecurringServices] = useState<RecurringService[]>([]);
   const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
@@ -133,11 +134,19 @@ export default function ServicesPage({ params }: { params: Promise<{ locale: str
   const whatsappContact = contactInfo.find(c => c.type === 'phone')?.value || '';
   
   const generateWhatsAppLink = (serviceName: string, price: number, type: 'package' | 'subscription') => {
-    const message = type === 'package' 
-      ? `مرحباً! أريد الاستفسار عن باقة "${serviceName}" بسعر $${price}`
-      : `مرحباً! أريد الاستفسار عن خدمة "${serviceName}" الشهرية بسعر $${price}`;
+    // Get the appropriate message template based on type and locale
+    const messageTemplate = type === 'package' 
+      ? tWhatsApp('packageInquiry')
+      : tWhatsApp('subscriptionInquiry');
     
-    return `https://wa.me/${whatsappContact.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
+    // Replace placeholders in the message template
+    const message = messageTemplate
+      .replace('{serviceName}', serviceName)
+      .replace('{price}', price.toString());
+    
+    // Clean phone number (remove non-numeric characters) and generate WhatsApp link
+    const cleanPhone = whatsappContact.replace(/[^0-9]/g, '');
+    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
   };
 
   const parseFeatures = (featuresString: string) => {
@@ -487,7 +496,7 @@ export default function ServicesPage({ params }: { params: Promise<{ locale: str
             <h2 className="text-3xl font-bold mb-4">{t('customSolution')}</h2>
             <p className="text-xl text-center mb-8 opacity-90">{t('customDescription')}</p>
             <motion.a
-              href={generateWhatsAppLink('استشارة مخصصة', 0, 'package')}
+              href={`https://wa.me/${whatsappContact.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(tWhatsApp('consultationMessage'))}`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}

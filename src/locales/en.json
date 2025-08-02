@@ -182,6 +182,8 @@
   },
   "whatsapp": {
     "tooltip": "💬 Need help with a project? Let's chat!",
-    "consultationMessage": "Hello, I would like to request a free 10-minute technical consultation"
+    "consultationMessage": "Hello, I would like to request a free 10-minute technical consultation",
+    "packageInquiry": "Hello! I would like to inquire about the \"{serviceName}\" package priced at ${price}",
+    "subscriptionInquiry": "Hello! I would like to inquire about the monthly \"{serviceName}\" service priced at ${price}"
   }
 }
