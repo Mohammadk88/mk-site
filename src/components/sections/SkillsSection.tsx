@@ -31,7 +31,7 @@ export default function SkillsSection() {
         tr: 'Backend Geliştirme'
       },
       icon: Database,
-      skills: ['Laravel', 'NestJS', 'Node.js', 'PostgreSQL', 'MongoDB', 'Redis'],
+      skills: ['Laravel', 'NestJS', 'Node.js', 'PostgreSQL', 'MySQL', 'Vector DB', 'Chroma DB', 'Redis'],
       color: 'from-green-500 to-emerald-500',
       bgGradient: 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20'
     },
@@ -42,7 +42,7 @@ export default function SkillsSection() {
         tr: 'Mobil Geliştirme'
       },
       icon: Smartphone,
-      skills: ['React Native', 'Flutter', 'PWA', 'Ionic', 'Cordova', 'Native Apps'],
+      skills: ['React Native', 'Flutter', 'Ionic'],
       color: 'from-purple-500 to-pink-500',
       bgGradient: 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20'
     },
@@ -53,7 +53,7 @@ export default function SkillsSection() {
         tr: 'AI ve Otomasyon'
       },
       icon: Brain,
-      skills: ['OpenAI', 'ChatGPT API', 'Machine Learning', 'Automation', 'Python', 'AI Tools'],
+      skills: ['OpenAI', 'ChatGPT API', 'N8N', 'Claude', 'Gemini', 'Automation', 'Python', 'AI Tools'],
       color: 'from-indigo-500 to-purple-500',
       bgGradient: 'bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20'
     },
