@@ -11,7 +11,8 @@ import {
   Clock, 
   MessageCircle
 } from 'lucide-react';
-import SocialMediaLinks from '@/components/ui/SocialMediaLinks';
+// import SocialMediaLinks from '@/components/ui/SocialMediaLinks';
+import SocialFooter from "@/components/layout/SocialFooter";
 
 interface ContactInfo {
   id: string;
@@ -280,27 +281,10 @@ export default function ContactInfo() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-              {locale === 'ar' ? 'تابعني' : 
-               locale === 'tr' ? 'Beni Takip Edin' : 
-               'Follow Me'}
-            </h3>
+           
             <div className="flex justify-center">
-              <SocialMediaLinks size="lg" className="gap-4" />
+             <SocialFooter />
             </div>
-          </motion.div>
-
-          {/* Response Time */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.8 }}
-            viewport={{ once: true }}
-            className="p-4 rounded-lg bg-primary/10 text-center"
-          >
-            <p className="text-primary font-medium">
-              ⚡ Average response time: 2-4 hours
-            </p>
           </motion.div>
         </motion.div>
       </div>

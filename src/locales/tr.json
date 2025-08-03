@@ -15,7 +15,9 @@
       "primary": "Çalışmalarımı Gör",
       "secondary": "Konuşalım"
     },
-    "availability": "Yeni projeler için müsait"
+    "availability": "Yeni projeler için müsait",
+    "startProject": "Projenizi Başlatın",
+    "viewProfile": "Profili Görüntüle"
   },
   "about": {
     "title": "Hakkımda",
@@ -166,7 +168,9 @@
     "delete": "Sil",
     "edit": "Düzenle",
     "view": "Görüntüle",
-    "download": "İndir"
+    "download": "İndir",
+    "startProject": "Projenizi Başlatın",
+    "scheduleCall": "Görüşme Ayarlayın"
   },
   "notFound": {
     "title": "Sayfa Bulunamadı",
@@ -184,6 +188,7 @@
     "tooltip": "💬 Bir projede yardıma mı ihtiyacınız var? Konuşalım!",
     "consultationMessage": "Merhaba, 10 dakikalık ücretsiz teknik danışmanlık talep etmek istiyorum",
     "packageInquiry": "Merhaba! \"{serviceName}\" paketi hakkında bilgi almak istiyorum, fiyatı ${price}",
-    "subscriptionInquiry": "Merhaba! Aylık \"{serviceName}\" hizmeti hakkında bilgi almak istiyorum, fiyatı ${price}"
+    "subscriptionInquiry": "Merhaba! Aylık \"{serviceName}\" hizmeti hakkında bilgi almak istiyorum, fiyatı ${price}",
+    "projectRequest": "Merhaba! Sizinle yeni bir proje başlatmak istiyorum. Detayları konuşabilir miyiz?"
   }
 }

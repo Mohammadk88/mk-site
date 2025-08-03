@@ -15,7 +15,9 @@
       "primary": "View My Work",
       "secondary": "Let's Talk"
     },
-    "availability": "Available for new projects"
+    "availability": "Available for new projects",
+    "startProject": "Start Your Project",
+    "viewProfile": "View LinkedIn Profile"
   },
   "about": {
     "title": "About Me",
@@ -166,7 +168,9 @@
     "delete": "Delete",
     "edit": "Edit",
     "view": "View",
-    "download": "Download"
+    "download": "Download",
+    "startProject": "Start Your Project",
+    "scheduleCall": "Schedule a Call"
   },
   "notFound": {
     "title": "Page Not Found",
@@ -184,6 +188,7 @@
     "tooltip": "💬 Need help with a project? Let's chat!",
     "consultationMessage": "Hello, I would like to request a free 10-minute technical consultation",
     "packageInquiry": "Hello! I would like to inquire about the \"{serviceName}\" package priced at ${price}",
-    "subscriptionInquiry": "Hello! I would like to inquire about the monthly \"{serviceName}\" service priced at ${price}"
+    "subscriptionInquiry": "Hello! I would like to inquire about the monthly \"{serviceName}\" service priced at ${price}",
+    "projectRequest": "Hello! I would like to start a new project with you. Can we discuss the details?"
   }
 }

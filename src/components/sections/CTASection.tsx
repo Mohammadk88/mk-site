@@ -3,8 +3,43 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle, Calendar, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
+
+interface ContactInfo {
+  type: string;
+  value: string;
+  label: string;
+}
 
 export default function CTASection() {
+  const t = useTranslations('common');
+  const tWhatsApp = useTranslations('whatsapp');
+  const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await fetch('/api/contact-info');
+        const data = await response.json();
+        setContactInfo(data);
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
+
+  // Get WhatsApp contact
+  const whatsappContact = contactInfo.find(c => c.type === 'phone')?.value || '';
+  
+  // Generate WhatsApp link for project request
+  const generateProjectWhatsAppLink = () => {
+    const message = tWhatsApp('projectRequest');
+    const cleanPhone = whatsappContact.replace(/[^0-9]/g, '');
+    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+  };
   return (
     <section className="py-20 bg-gradient-to-br from-primary via-primary to-secondary relative overflow-hidden">
       {/* Background Elements */}
@@ -68,14 +103,20 @@ export default function CTASection() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12"
             >
-              <Button 
-                size="lg" 
-                className="bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl transition-all duration-300 group"
+              <a 
+                href={generateProjectWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <MessageCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                Start Your Project
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                >
+                  <MessageCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  {t('startProject')}
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </a>
               
               <Button 
                 size="lg" 
@@ -83,7 +124,7 @@ export default function CTASection() {
                 className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300"
               >
                 <Calendar className="w-5 h-5 mr-2" />
-                Schedule a Call
+                {t('scheduleCall')}
               </Button>
             </motion.div>
 

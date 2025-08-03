@@ -3,9 +3,11 @@
 import { motion } from 'framer-motion';
 import { Star, Quote, Users, ThumbsUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function TestimonialsSection() {
   const [locale, setLocale] = useState('en');
+  const t = useTranslations('common');
 
   useEffect(() => {
     const currentLocale = window.location.pathname.split('/')[1] || 'en';
@@ -128,11 +130,7 @@ export default function TestimonialsSection() {
   };
 
   const getCtaButton = () => {
-    switch (locale) {
-      case 'ar': return 'ابدأ مشروعك';
-      case 'tr': return 'Projenizi Başlatın';
-      default: return 'Start Your Project';
-    }
+    return t('startProject');
   };
 
   return (

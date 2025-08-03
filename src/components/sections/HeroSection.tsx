@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import SocialMediaLinks from '@/components/ui/SocialMediaLinks';
+// import SocialMediaLinks from '@/components/ui/SocialMediaLinks';
 import Image from 'next/image';
 import SocialFooter from "@/components/layout/SocialFooter";
+import { useTranslations } from 'next-intl';
 
 interface PersonalInfo {
   id: string;
@@ -44,6 +45,18 @@ export default function HeroSection({
   contactInfo, 
   locale 
 }: HeroSectionProps) {
+  const t = useTranslations('hero');
+  const tWhatsApp = useTranslations('whatsapp');
+
+  // Get WhatsApp contact
+  const whatsappContact = contactInfo.find(c => c.type === 'phone')?.value || '';
+  
+  // Generate WhatsApp link for project request
+  const generateProjectWhatsAppLink = () => {
+    const message = tWhatsApp('projectRequest');
+    const cleanPhone = whatsappContact.replace(/[^0-9]/g, '');
+    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+  };
 
   // Get localized content
   const getName = () => {
@@ -211,13 +224,19 @@ export default function HeroSection({
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
-            <Button 
-              size="lg" 
-              className="group bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-3"
+            <a 
+              href={generateProjectWhatsAppLink()}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {locale === 'ar' ? 'ابدأ مشروعك' : locale === 'tr' ? 'Projenizi Başlatın' : 'Start Your Project'}
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+              <Button 
+                size="lg" 
+                className="group bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-3"
+              >
+                {t('startProject')}
+                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </a>
             <a 
               href={personalInfo?.resumeUrl || 'https://linkedin.com/in/mohammadkfelati'} 
               target="_blank" 
@@ -225,7 +244,7 @@ export default function HeroSection({
               className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
               <Linkedin className="mr-2 w-4 h-4" />
-              {locale === 'ar' ? 'عرض الملف الشخصي' : locale === 'tr' ? 'Profili Görüntüle' : 'View LinkedIn Profile'}
+              {t('viewProfile')}
             </a>
           </motion.div>
 
