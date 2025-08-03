@@ -128,6 +128,23 @@ export default function AdminPage() {
                 </div>
               </div>
             </Link>
+
+            <Link
+              href="/admin/users"
+              className="block p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors"
+            >
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <svg className="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                  </svg>
+                </div>
+                <div className="ml-4">
+                  <h4 className="text-sm font-medium text-gray-900 dark:text-white">إدارة المستخدمين</h4>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">إدارة المستخدمين الإداريين والصلاحيات</p>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
