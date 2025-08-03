@@ -67,7 +67,7 @@ export default function SocialFooter({ className = '' }: SocialFooterProps) {
             />
           </div>
             <p className="text-primary font-medium">
-              ⚡ Average response time: 2-4 hours
+              {t('responseTime')}
             </p>
           {/* Copyright Text */}
           <div className="w-full mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">

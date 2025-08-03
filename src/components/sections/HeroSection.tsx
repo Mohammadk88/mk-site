@@ -189,7 +189,7 @@ export default function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-gray-600 text-center dark:text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
             {getBio()}
           </motion.p>
